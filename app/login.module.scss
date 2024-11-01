@@ -1,0 +1,145 @@
+@use "/styles/variables.scss" as *;
+@use "/styles/mixins.scss" as *;
+
+.logo {
+  position: relative;
+  width: clamp(
+    100px,
+    15vw,
+    173.76px
+  ); //controls the logo size across all screens
+  height: 36px;
+  margin: 4vh 0 2vh 5%;
+  display: inline-block;
+  @include tabScreen {
+    margin-left: 97px;
+    margin-top: clamp(50px, 10vh, 106px);
+  }
+}
+.illustration {
+  position: relative;
+  width: 100vw;
+  height: 60vh;
+  @include tabScreen {
+    width: 600px;
+    height: 337.57px;
+    margin-left: 67px;
+  }
+  @include desktopScreen {
+    margin-top: 139px;
+  }
+  & img {
+    object-fit: cover;
+  }
+}
+
+//this is an accessibility hack for the form labels, to hide them from view
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+//hack ends
+
+.main {
+  font-family: $avenir-next, sans-serif;
+  @include desktopScreen {
+    display: flex;
+    justify-content: space-between;
+  }
+  section {
+    @extend %mobile-wrapper;
+    padding: 5vh 0 10vh;
+    @include tabScreen {
+      width: 80%;
+    }
+    @include desktopScreen {
+      margin: 0;
+      padding: 91.64px 64px 215px;
+      width: 609px;
+    }
+    input {
+      font-size: 14px;
+      font-family: $avenir-next;
+      font-weight: 400;
+      line-height: 19.12px;
+      &:focus {
+        outline: 2px solid $main-accent;
+      }
+    }
+    input,
+    button {
+      width: 100%;
+      padding: 1.2em;
+      border: 2px solid rgba($body-text-clr, 0.15);
+      border-radius: 5px;
+    }
+    button {
+      border: none;
+      background-color: $main-accent;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 19.12px;
+      letter-spacing: 0.1em;
+      text-align: center;
+      color: white;
+      transition: background-color 500ms ease-out;
+      @extend %hover-gradient-bg;
+    }
+    .title h1 {
+      font-size: clamp(32.5px, 7vw, 40px);
+      font-weight: 700;
+      line-height: 54.64px;
+      letter-spacing: -0.04em;
+      color: $dark-blue;
+      margin-bottom: 12px;
+    }
+    .title p {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 27.32px;
+      color: $body-text-clr;
+      margin-bottom: 59px;
+    }
+    .passwordActions {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16.39px;
+      letter-spacing: 0.1em;
+      color: $main-accent;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    p.passwordActions {
+      margin-bottom: 35px;
+    }
+    .emailInput {
+      margin-bottom: 24px;
+    }
+    .passwordInput {
+      margin-bottom: 27px;
+    }
+    .passwordField {
+      position: relative;
+    }
+    span.passwordActions {
+      position: absolute;
+      bottom: 50%;
+      transform: translateY(50%);
+      right: 1.2em;
+    }
+    .formError {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 19.12px;
+      color: $pill-red;
+    }
+  }
+}
