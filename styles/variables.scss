@@ -8,11 +8,11 @@ $icon-purplish: #df18ff;
 $green: #39cd62;
 $gold: #e9b200;
 $body-text-clr: #545f7d;
-$faded-text-bluish: #213f7d;
 %mobile-wrapper {
   width: 90%;
   margin: 0 auto;
 }
+$sf-compact: var(--font-sfCompact);
 $avenir-next: var(--font-avenirNext);
 $work-sans: var(--font-workSans);
 %hover-gradient-bg {
@@ -21,5 +21,8 @@ $work-sans: var(--font-workSans);
   }
 }
 %box-shadow {
-  box-shadow: 3px 5px 20px 0px #0000000a;
+  box-shadow: 3px 5px 20px 0 #0000000a;
+}
+%box-shadow2 {
+  box-shadow: 0 0 5px 0 #0f0f0f1c;
 }

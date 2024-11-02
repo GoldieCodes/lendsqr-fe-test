@@ -1,0 +1,153 @@
+@use "mixins.scss" as *;
+@use "variables.scss" as *;
+
+.userDetails {
+  width: 100%;
+
+  header {
+    .linkBack {
+      width: max-content;
+      font-size: 16px;
+      line-height: 18.77px;
+      cursor: pointer;
+      @include flex(start);
+      gap: 10px;
+      .icon,
+      .icon img {
+        @include widthHeight(30px, 30px);
+      }
+    }
+    .buttonGroup,
+    .buttonGroup span {
+      @include flex(space-between);
+      gap: 20px;
+    }
+    .buttonGroup {
+      margin: 18px 0;
+    }
+    button {
+      text-transform: uppercase;
+      line-height: 16.42px;
+      border-radius: 8px;
+      border: 1px solid $main-accent;
+      background-color: white;
+      color: $main-accent;
+      padding: 11.5px 16px;
+      &:hover {
+        background: $main-accent;
+        color: white;
+      }
+      &.blacklist {
+        border-color: $pill-red;
+        color: $pill-red;
+        &:hover {
+          background: $pill-red;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .userOverview {
+    height: 210px;
+    @extend %box-shadow2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 38px 0;
+
+    .topDetails {
+      @include flex(start);
+
+      div {
+        padding: 29px;
+        border-left: 1px solid rgba($body-text-clr, 0.2);
+        &:first-child {
+          border: none;
+        }
+        &:first-child {
+          @include flex(start);
+          gap: 12px;
+          .icon {
+            @include widthHeight(100px, 100px);
+            border-radius: 50%;
+            background-color: rgba($dark-blue, 0.16);
+            display: grid;
+            place-content: center;
+            img {
+              @include widthHeight(40px, 40px);
+            }
+          }
+        }
+        &:nth-child(2) {
+          p {
+            font-weight: 500;
+            margin-bottom: 8px;
+          }
+          .icon img {
+            @include widthHeight(16px, 16px);
+          }
+        }
+        h2 {
+          margin-bottom: 8px;
+        }
+      }
+    }
+    .detailHeaders {
+      @include flex(space-between);
+
+      p {
+        font-family: $sf-compact;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19.09px;
+        text-align: center;
+        padding: 10px 25px;
+        color: rgba(#000, 0.8);
+        &:first-child {
+          color: $main-accent;
+          border-bottom: 2px solid $main-accent;
+        }
+      }
+    }
+  }
+
+  .informationBox {
+    @extend %box-shadow2;
+    color: $body-text-clr;
+
+    .infoSection {
+      padding: 30px;
+      border-bottom: 1px solid rgba($dark-blue, 0.1);
+      h3 {
+        color: $dark-blue;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 18.77px;
+        text-align: left;
+        margin-bottom: 30px;
+      }
+      ul {
+        display: flex;
+        gap: 40px 80px;
+        flex-wrap: wrap;
+        li {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: column;
+          @include widthHeight(max-content, 41px);
+          font-size: 12px;
+          line-height: 14.08px;
+          text-transform: uppercase;
+
+          strong {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 18.77px;
+            text-transform: none;
+          }
+        }
+      }
+    }
+  }
+}

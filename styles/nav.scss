@@ -3,7 +3,16 @@
 
 .main-nav {
   @include flex(space-between);
-  padding: 30px 40px;
+  padding: 26px 29px;
+  @extend %box-shadow;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 1440px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.014);
+  backdrop-filter: blur(80px);
+  z-index: 100;
 }
 .avatar-section {
   width: 20%;

@@ -1,0 +1,64 @@
+@use "mixins.scss" as *;
+@use "variables.scss" as *;
+
+.dashbContentWrapper {
+  padding: 60px;
+  width: 100%;
+}
+
+.dashboardContentBody {
+  .overview {
+    @include flex(space-between);
+    gap: 27px;
+  }
+  .itemBox {
+    @extend %box-shadow2;
+    border: 1px solid #213f7d0f;
+    padding: 20px 30px;
+    @include widthHeight(240px, 160px);
+    margin: 27px 0;
+
+    .icon {
+      @include widthHeight(40px, 40px);
+      border-radius: 50%;
+      display: grid;
+      place-content: center;
+      img {
+        @include widthHeight(24px, 24px);
+      }
+    }
+
+    p {
+      text-transform: uppercase;
+      font-weight: 500;
+      line-height: 16.42px;
+      margin-top: 10px;
+
+      &.number {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 28.15px;
+      }
+    }
+  }
+}
+[data-key="users"] {
+  .icon {
+    background-color: rgba($icon-purplish, 0.1);
+  }
+}
+[data-key="active users"] {
+  .icon {
+    background-color: rgba($light-blue, 0.1);
+  }
+}
+[data-key="users with loans"] {
+  .icon {
+    background-color: rgba($icon-dull-red, 0.1);
+  }
+}
+[data-key="users with savings"] {
+  .icon {
+    background-color: rgba($icon-red, 0.1);
+  }
+}

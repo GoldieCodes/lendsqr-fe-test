@@ -2,12 +2,16 @@
 @use "variables.scss" as *;
 @use "nav.scss" as navmenu;
 @use "sidemenu.scss" as sidemenu;
+@use "dashboardcontent.scss" as dashbcontent;
+@use "userdetails.scss" as *;
 
 html,
 body {
-  max-width: 100vw;
+  max-width: 1440px;
+  margin: 0 auto;
   overflow-x: hidden;
   font-family: $work-sans, sans-serif;
+  line-height: 16.42px;
   font-size: clamp(12.5px, 3vw, 14px);
   color: $dark-blue;
 }
@@ -21,20 +25,43 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  &:hover {
+    color: $main-accent;
+  }
 }
-
+li {
+  list-style: none;
+}
+h1 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28.15px;
+  text-align: left;
+}
+h2 {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 25.81px;
+  text-align: left;
+}
 button {
   cursor: pointer;
   border: none;
   border-radius: 5px;
+  padding: 1.2em;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19.12px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  background-color: $main-accent;
+  color: white;
+  transition: background-color 500ms ease-out;
+  @extend %hover-gradient-bg;
 }
 .logo {
   position: relative;
-  width: clamp(
-    100px,
-    15vw,
-    144.8px
-  ); //controls the logo size across all screens
+  width: clamp(100px, 15vw, 140px); //controls the logo size across all screens
   height: 30px;
   display: inline-block;
 }
@@ -49,22 +76,15 @@ input {
     outline: 2px solid $main-accent;
   }
 }
-button {
-  padding: 1.2em;
-  background-color: $main-accent;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 19.12px;
-  letter-spacing: 0.1em;
-  text-align: center;
-  color: white;
-  transition: background-color 500ms ease-out;
-  @extend %hover-gradient-bg;
-}
 .icon {
   position: relative;
   display: inline-block;
   & img {
     object-fit: contain;
   }
+}
+.dashboardBodyLayout {
+  display: flex;
+
+  margin-top: 100px;
 }

@@ -26,6 +26,10 @@ const workSans = Work_Sans({
   display: "swap",
   weight: ["400", "500", "600", "700"],
 })
+const sfCompact = localFont({
+  src: "./fonts/sf-compact-text-heavy.ttf",
+  variable: "--font-sfCompact",
+})
 
 export const metadata: Metadata = {
   title: "Lendsqr",
@@ -43,7 +47,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${avenirNext.variable} ${workSans.variable}`}>
+    <html
+      lang="en"
+      className={`${avenirNext.variable} ${workSans.variable} ${sfCompact.variable}`}
+    >
       <body>
         <link rel="icon" href="/favicon.png" sizes="any" />
         {children}

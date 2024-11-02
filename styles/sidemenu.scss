@@ -2,7 +2,8 @@
 @use "mixins.scss" as *;
 
 .sidemenu {
-  width: 283px;
+  min-width: 283px;
+  padding: 39px 0 20px;
   display: grid;
   gap: 35px;
   font-size: 16px;
@@ -27,6 +28,7 @@
     border-left: 3px solid $main-accent;
     background-color: rgba($main-accent, 0.06);
     opacity: 1;
+    cursor: pointer;
   }
   h3 {
     font-size: 12px;
@@ -36,5 +38,16 @@
     color: $body-text-clr;
     padding-left: 29px;
     margin-bottom: 15px;
+  }
+  .logout {
+    border-top: 1px solid rgba($dark-blue, 0.1);
+    padding-top: 5px;
+    & > p {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 14.08px;
+      text-align: left;
+      margin: 30px 29px 0;
+    }
   }
 }

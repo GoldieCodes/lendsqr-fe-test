@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 export default function DashboardSideMenu() {
   const customers = [
@@ -26,6 +27,7 @@ export default function DashboardSideMenu() {
     { icon: "/sliders-h.svg", text: "Preferences" },
     { icon: "/badge-percent.svg", text: "Fees and Pricing" },
     { icon: "/clipboard-list.svg", text: "Audit Logs" },
+    { icon: "/tire.svg", text: "Systems Messages" },
   ]
 
   return (
@@ -47,25 +49,40 @@ export default function DashboardSideMenu() {
       </div>
       <div className="customers">
         <h3>CUSTOMERS</h3>
-        {customers.map((item, index) => (
-          <div
-            className="sideMenuLink"
-            key={index}
-            data-key={`${item.text.toLowerCase()} icon`}
-          >
-            <span className="icon">
-              <Image src={item.icon} alt={`${item.text} icon`} fill />
-            </span>
-            <p>{item.text}</p>
-          </div>
-        ))}
+        {customers.map((item) =>
+          item.text === "Users" ? (
+            <Link href="/dashboard">
+              <div
+                className="sideMenuLink"
+                key={item.text}
+                data-key={`${item.text.toLowerCase()} icon`}
+              >
+                <span className="icon">
+                  <Image src={item.icon} alt={`${item.text} icon`} fill />
+                </span>
+                <p>{item.text}</p>
+              </div>
+            </Link>
+          ) : (
+            <div
+              className="sideMenuLink"
+              key={item.text}
+              data-key={`${item.text.toLowerCase()} icon`}
+            >
+              <span className="icon">
+                <Image src={item.icon} alt={`${item.text} icon`} fill />
+              </span>
+              <p>{item.text}</p>
+            </div>
+          )
+        )}
       </div>
       <div className="businesses">
         <h3>BUSINESSES</h3>
-        {businesses.map((item, index) => (
+        {businesses.map((item) => (
           <div
             className="sideMenuLink"
-            key={index}
+            key={item.text}
             data-key={`${item.text.toLowerCase()} icon`}
           >
             <span className="icon">
@@ -77,10 +94,10 @@ export default function DashboardSideMenu() {
       </div>
       <div className="settings">
         <h3>SETTINGS</h3>
-        {settings.map((item, index) => (
+        {settings.map((item) => (
           <div
             className="sideMenuLink"
-            key={index}
+            key={item.text}
             data-key={`${item.text.toLowerCase()} icon`}
           >
             <span className="icon">
@@ -89,6 +106,15 @@ export default function DashboardSideMenu() {
             <p>{item.text}</p>
           </div>
         ))}
+      </div>
+      <div className="logout">
+        <div className="sideMenuLink">
+          <span className="icon">
+            <Image src="/sign-out.svg" alt="sign out" fill />
+          </span>
+          <p>Logout</p>
+        </div>
+        <p>v.1.2.0</p>
       </div>
     </nav>
   )

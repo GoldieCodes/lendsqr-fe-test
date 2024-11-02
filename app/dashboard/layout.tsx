@@ -8,12 +8,12 @@ export default function DashboardLayout({
 }) {
   return (
     <>
-      <DashboardNav />
-      <DashboardSideMenu />
       {/* Includes shared UI here e.g. a header or sidebar */}
-      <nav></nav>
-
-      {children}
+      <DashboardNav />
+      <main className="dashboardBodyLayout">
+        <DashboardSideMenu />
+        {children}
+      </main>
     </>
   )
 }
