@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "/styles/globals.scss"
+import { Work_Sans } from "next/font/google"
 
 const avenirNext = localFont({
   src: [
@@ -19,11 +20,12 @@ const avenirNext = localFont({
   ],
   variable: "--font-avenirNext",
 })
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// })
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  variable: "--font-workSans",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+})
 
 export const metadata: Metadata = {
   title: "Lendsqr",
@@ -41,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${avenirNext.variable}`}>
+    <html lang="en" className={`${avenirNext.variable} ${workSans.variable}`}>
       <body>
         <link rel="icon" href="/favicon.png" sizes="any" />
         {children}

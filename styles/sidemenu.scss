@@ -1,0 +1,40 @@
+@use "variables.scss" as *;
+@use "mixins.scss" as *;
+
+.sidemenu {
+  width: 283px;
+  display: grid;
+  gap: 35px;
+  font-size: 16px;
+  line-height: 18.77px;
+  color: $dark-blue;
+  @extend %box-shadow;
+
+  .sideMenuLink {
+    opacity: 60%;
+    @include flex(start);
+    gap: 10px;
+    padding: 15px 29px;
+    .icon {
+      @include widthHeight(16px, 17px);
+    }
+    &:first-child {
+      opacity: 1;
+    }
+  }
+
+  [data-key="users icon"] {
+    border-left: 3px solid $main-accent;
+    background-color: rgba($main-accent, 0.06);
+    opacity: 1;
+  }
+  h3 {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.08px;
+    text-align: left;
+    color: $body-text-clr;
+    padding-left: 29px;
+    margin-bottom: 15px;
+  }
+}

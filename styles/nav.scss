@@ -1,0 +1,65 @@
+@use "mixins.scss" as *;
+@use "variables.scss" as *;
+
+.main-nav {
+  @include flex(space-between);
+  padding: 30px 40px;
+}
+.avatar-section {
+  width: 20%;
+  font-size: 16px;
+  @include flex(space-between);
+  a {
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  .user {
+    @include flex(space-between);
+    width: 50%;
+    p {
+      font-weight: 500;
+    }
+  }
+}
+.icon {
+  &.avatar {
+    @include widthHeight(48px, 48px);
+  }
+  &.bell {
+    @include widthHeight(26px, 26px);
+  }
+  &.arrow {
+    @include widthHeight(10px, 8px);
+  }
+  &.search {
+    display: grid;
+    place-content: center;
+    img {
+      @include widthHeight(20px, 20px);
+    }
+  }
+}
+.searchBar {
+  position: relative;
+  width: 400px;
+  input {
+    border-radius: 8px;
+    border: 1px solid rgba($dark-blue, 0.2);
+    padding: 10px 18px;
+    font-family: $work-sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: left;
+    color: $body-text-clr;
+  }
+  span {
+    position: absolute;
+    height: 100%;
+    width: 56px;
+    background-color: $main-accent;
+    top: 0;
+    right: 0;
+    border-radius: 0 8px 8px 0;
+  }
+}

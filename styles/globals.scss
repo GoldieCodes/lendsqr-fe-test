@@ -1,7 +1,15 @@
+@use "mixins.scss" as *;
+@use "variables.scss" as *;
+@use "nav.scss" as navmenu;
+@use "sidemenu.scss" as sidemenu;
+
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  font-family: $work-sans, sans-serif;
+  font-size: clamp(12.5px, 3vw, 14px);
+  color: $dark-blue;
 }
 
 * {
@@ -19,4 +27,44 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 5px;
+}
+.logo {
+  position: relative;
+  width: clamp(
+    100px,
+    15vw,
+    144.8px
+  ); //controls the logo size across all screens
+  height: 30px;
+  display: inline-block;
+}
+input {
+  width: 100%;
+  padding: 1.2em;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 19.12px;
+  border: 2px solid rgba($body-text-clr, 0.15);
+  &:focus {
+    outline: 2px solid $main-accent;
+  }
+}
+button {
+  padding: 1.2em;
+  background-color: $main-accent;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19.12px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: white;
+  transition: background-color 500ms ease-out;
+  @extend %hover-gradient-bg;
+}
+.icon {
+  position: relative;
+  display: inline-block;
+  & img {
+    object-fit: contain;
+  }
 }

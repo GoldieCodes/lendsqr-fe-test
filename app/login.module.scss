@@ -2,15 +2,12 @@
 @use "/styles/mixins.scss" as *;
 
 .logo {
-  position: relative;
   width: clamp(
     100px,
     15vw,
     173.76px
   ); //controls the logo size across all screens
-  height: 36px;
   margin: 4vh 0 2vh 5%;
-  display: inline-block;
   @include tabScreen {
     margin-left: 97px;
     margin-top: clamp(50px, 10vh, 106px);
@@ -64,32 +61,7 @@
       width: 609px;
     }
     input {
-      font-size: 14px;
       font-family: $avenir-next;
-      font-weight: 400;
-      line-height: 19.12px;
-      &:focus {
-        outline: 2px solid $main-accent;
-      }
-    }
-    input,
-    button {
-      width: 100%;
-      padding: 1.2em;
-      border: 2px solid rgba($body-text-clr, 0.15);
-      border-radius: 5px;
-    }
-    button {
-      border: none;
-      background-color: $main-accent;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 19.12px;
-      letter-spacing: 0.1em;
-      text-align: center;
-      color: white;
-      transition: background-color 500ms ease-out;
-      @extend %hover-gradient-bg;
     }
     .title h1 {
       font-size: clamp(32.5px, 7vw, 40px);

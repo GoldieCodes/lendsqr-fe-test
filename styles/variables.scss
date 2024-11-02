@@ -14,8 +14,12 @@ $faded-text-bluish: #213f7d;
   margin: 0 auto;
 }
 $avenir-next: var(--font-avenirNext);
+$work-sans: var(--font-workSans);
 %hover-gradient-bg {
   &:hover {
     background: linear-gradient(45deg, $green, $main-accent);
   }
+}
+%box-shadow {
+  box-shadow: 3px 5px 20px 0px #0000000a;
 }

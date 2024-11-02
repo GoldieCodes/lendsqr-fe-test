@@ -9,3 +9,14 @@
     @content;
   }
 }
+
+@mixin flex($alignment) {
+  display: flex;
+  justify-content: $alignment;
+  align-items: center;
+}
+
+@mixin widthHeight($width, $height) {
+  width: $width;
+  height: $height;
+}

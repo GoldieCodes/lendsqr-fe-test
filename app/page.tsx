@@ -6,11 +6,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import { useState } from "react"
 import { auth } from "@/firebase"
 import {
+  Auth,
+  UserCredential,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth"
 import { FirebaseError } from "firebase/app"
 import Modal from "./components/modal"
+import { useRouter } from "next/navigation"
 
 //this function defines all the logic for the login page
 export default function Login() {
@@ -18,6 +21,7 @@ export default function Login() {
   const [isModalOpen, setModalOpen] = useState(false)
   const [statusMessage, setStatusMessage] = useState("")
   const [createAccount, setCreateAccount] = useState(false)
+  const router = useRouter()
 
   //this unit defines the show/hide password feature on the form
   const [hidePassword, setHidePassword] = useState(true)
@@ -25,37 +29,31 @@ export default function Login() {
     setHidePassword(!hidePassword)
   }
 
-  //this function logs a user into their account, using Firebase auth functions
-  //in the event where the user is not successfully logged in, it runs a sub function with other options for the user: retry or create account
-  function loginUser(
+  //
+  const handleAuth = (
+    authFunction: (
+      auth: Auth,
+      email: string,
+      password: string
+    ) => Promise<UserCredential>,
     email: string,
     password: string,
     setSubmitting: (arg: boolean) => void
-  ): void {
-    if (createAccount) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("New user created!")
-        })
-        .catch((error) => {
-          fixErrorOrCreateUser(error)
-        })
-        .finally(() => setSubmitting(false))
-    } else
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("Logged in!")
-        })
-        .catch((error) => {
-          //this is the sub function that introduces the modal with the options to retry logging in or consider creating an account
-          fixErrorOrCreateUser(error)
-        })
-        .finally(() => setSubmitting(false))
+  ) => {
+    authFunction(auth, email, password)
+      .then((userCredential) => {
+        router.push("/dashboard")
+      })
+      .catch((error) => {
+        fixErrorOrCreateUser(error)
+      })
+      .finally(() => setSubmitting(false))
   }
+
+  // Calling the helper function based on `createAccount` value
 
   //the modal function
   function fixErrorOrCreateUser(error: FirebaseError): void {
-    console.log(error.code)
     setModalOpen(true)
     if (error.code === "auth/invalid-credential") {
       setStatusMessage(
@@ -75,7 +73,7 @@ export default function Login() {
 
   return (
     <>
-      <header className={login.logo}>
+      <header className={`logo ${login.logo}`}>
         <Image src="/logo.svg" alt="Lendsqr logo" fill />
       </header>
       <main className={login.main}>
@@ -105,7 +103,16 @@ export default function Login() {
                 .min(6, "Password should be at least 6 characters"),
             })}
             onSubmit={({ email, password }, { setSubmitting }) => {
-              loginUser(email, password, setSubmitting)
+              const values: [string, string, (arg: boolean) => void] = [
+                email,
+                password,
+                setSubmitting,
+              ]
+              if (createAccount) {
+                handleAuth(createUserWithEmailAndPassword, ...values)
+              } else {
+                handleAuth(signInWithEmailAndPassword, ...values)
+              }
             }}
           >
             {({ isSubmitting }) => (
