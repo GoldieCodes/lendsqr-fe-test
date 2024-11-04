@@ -64,9 +64,11 @@
     }
 
     .topDetails {
+      width: 70%;
       @include flex(start);
       @include tabScreen {
         flex-wrap: nowrap;
+        width: initial;
       }
 
       div {
@@ -109,8 +111,8 @@
     .detailHeaders {
       display: grid;
       @include tabScreen {
-        flex-wrap: nowrap;
         @include flex(space-between);
+        flex-wrap: nowrap;
       }
 
       p {

@@ -89,7 +89,13 @@ export default function Dashboard() {
     setOpenFilter(false)
   }
 
-  if (!users) return <div className="loading">Loading...</div>
+  if (!users)
+    return (
+      <div className="loading">
+        <div className="loader"></div>
+        <p>Loading...</p>
+      </div>
+    )
   if (!filteredValues)
     return <div className="noFilterValue">No Match Found</div>
 

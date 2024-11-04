@@ -47,11 +47,12 @@ export default function TopNav() {
           </div>
         </div>
 
-        {/* GO TO DOCUMENTATION LINK */}
+        {/* GO TO DOCUMENTATION LINK FOR MOBLIE LAYOUT */}
         <a
           href="https://lendsqr.freshdesk.com/support/home?utm_source=lendsqr-menu"
           target="_blank"
           rel="noopener noreferrer"
+          className="for-mobile"
         >
           Docs
         </a>
@@ -59,7 +60,17 @@ export default function TopNav() {
       {/* SEARCH BAR AREA ENDS */}
 
       {/* THIS IS THE USER AVATAR AREA */}
+      {/* GO TO DOCS LINK FOR DESKTOP SCREENS */}
       <div className="avatar-section">
+        <a
+          href="https://lendsqr.freshdesk.com/support/home?utm_source=lendsqr-menu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="for-desktop"
+        >
+          Docs
+        </a>
+
         <span className="icon bell">
           <Image src="/notification-bell.png" alt="notification icon" fill />
         </span>

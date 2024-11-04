@@ -101,26 +101,33 @@ select {
   }
 }
 .loading {
-  &::before {
-    content: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: rgba($color: #000000, $alpha: 1);
-    .icon,
-    .icon > img {
-      @include widthHeight(40px, 40px);
-      animation: rotate 200ms timing-function ease infinite;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; // Center vertically
+  text-align: center;
+
+  .loader {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px; /* Size of the loader */
+    height: 50px; /* Size of the loader */
+    animation: spin 1s linear infinite;
+    margin-right: 10px; /* Space between loader and text */
+  }
+
+  p {
+    font-size: 18px; /* Adjust text size as needed */
+    color: #333; /* Darker text color */
   }
 }
-@keyframes rotate {
-  from {
-    transform: rotate(180);
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  to {
-    transform: rotate(360);
+  100% {
+    transform: rotate(360deg);
   }
 }

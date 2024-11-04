@@ -17,6 +17,12 @@
     margin: 27px 0;
     flex-grow: 1;
     min-width: 140px;
+    max-width: 300px;
+    display: grid;
+    place-content: center;
+    @include desktopScreen {
+      display: initial;
+    }
 
     .icon {
       @include widthHeight(40px, 40px);

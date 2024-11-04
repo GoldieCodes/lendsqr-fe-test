@@ -28,13 +28,15 @@
     right: 0;
 
     & > div {
-      width: 60%;
+      width: 80%;
       @include flex(space-between);
+      @include desktopScreen {
+        width: 100%;
+      }
     }
     @include desktopScreen {
       position: initial;
       width: initial;
-      padding: 0 60px;
     }
 
     .searchBar {
@@ -67,18 +69,43 @@
       }
     }
   }
+  a {
+    text-decoration: underline;
+    font-weight: 500;
 
-  .avatar-section {
-    width: 20%;
-    font-size: 16px;
-    @include flex(space-between);
-    a {
-      text-decoration: underline;
-      font-weight: 500;
+    &.for-desktop {
+      width: 0;
+      display: none;
     }
+    @include desktopScreen {
+      &.for-mobile {
+        width: 0;
+        display: none;
+      }
+      &.for-desktop {
+        width: initial;
+        display: initial;
+      }
+    }
+  }
+  .avatar-section {
+    width: 50%;
+    font-size: 16px;
+    @include flex(right);
+    gap: 20px;
+    @include desktopScreen {
+      width: 30%;
+      gap: 20px;
+    }
+
     .user {
-      @include flex(space-between);
-      width: 50%;
+      @include flex(space-around);
+      gap: 5px;
+      @include desktopScreen {
+        justify-content: space-around;
+        gap: 0;
+        width: 40%;
+      }
       p {
         font-weight: 500;
       }

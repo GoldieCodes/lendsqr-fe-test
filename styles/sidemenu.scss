@@ -2,9 +2,10 @@
 @use "mixins.scss" as *;
 
 .sidemenu {
-  width: 283px;
+  min-width: 283px;
   position: absolute;
   left: -100%;
+  height: fit-content;
   padding: 39px 0 20px;
   display: grid;
   gap: 35px;
@@ -12,7 +13,7 @@
   line-height: 18.77px;
   color: $dark-blue;
   background: white;
-  z-index: 100;
+  z-index: 20;
   @extend %box-shadow;
   transition: all 500ms ease;
   @include desktopScreen {
@@ -25,10 +26,12 @@
   .sideMenuLink {
     opacity: 60%;
     @include flex(start);
+    flex-wrap: nowrap;
     gap: 10px;
     padding: 15px 29px;
     .icon {
-      @include widthHeight(16px, 17px);
+      width: 19px;
+      height: 15.2px;
     }
     &:first-child {
       opacity: 1;
@@ -40,6 +43,10 @@
     background-color: rgba($main-accent, 0.06);
     opacity: 1;
     cursor: pointer;
+    a {
+      @include flex(space-between);
+      gap: 10px;
+    }
   }
   h3 {
     font-size: 12px;

@@ -18,7 +18,7 @@
 }
 
 @mixin widthHeight($width, $height) {
-  max-width: $width;
+  width: $width;
   height: $height;
 }
 
