@@ -2,14 +2,25 @@
 @use "mixins.scss" as *;
 
 .sidemenu {
-  min-width: 283px;
+  width: 283px;
+  position: absolute;
+  left: -100%;
   padding: 39px 0 20px;
   display: grid;
   gap: 35px;
   font-size: 16px;
   line-height: 18.77px;
   color: $dark-blue;
+  background: white;
+  z-index: 100;
   @extend %box-shadow;
+  transition: all 500ms ease;
+  @include desktopScreen {
+    position: initial;
+  }
+  &.openMobileSideMenu {
+    left: 0;
+  }
 
   .sideMenuLink {
     opacity: 60%;

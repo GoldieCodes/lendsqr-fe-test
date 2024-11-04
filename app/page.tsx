@@ -12,7 +12,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth"
 import { FirebaseError } from "firebase/app"
-import Modal from "./components/modal"
+import Modal from "./components/Modal"
 import { useRouter } from "next/navigation"
 
 //this function defines all the logic for the login page

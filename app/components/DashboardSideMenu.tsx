@@ -1,7 +1,12 @@
+"use client"
 import Image from "next/image"
 import Link from "next/link"
+import { useContext } from "react"
+import { MenuContextProvider } from "../dashboard/layout"
 
 export default function DashboardSideMenu() {
+  const MenuContext = useContext(MenuContextProvider)
+
   const customers = [
     { icon: "/user-friends.svg", text: "Users" },
     { icon: "/users.svg", text: "Guarantors" },
@@ -31,7 +36,11 @@ export default function DashboardSideMenu() {
   ]
 
   return (
-    <nav className="sidemenu">
+    <nav
+      className={`sidemenu ${
+        MenuContext?.mobileMenuOpen ? "openMobileSideMenu" : ""
+      }`}
+    >
       <div className="sideMenuLink">
         <span className="icon">
           <Image src="/briefcase.svg" alt="briefcase" fill />
@@ -51,18 +60,18 @@ export default function DashboardSideMenu() {
         <h3>CUSTOMERS</h3>
         {customers.map((item) =>
           item.text === "Users" ? (
-            <Link href="/dashboard">
-              <div
-                className="sideMenuLink"
-                key={item.text}
-                data-key={`${item.text.toLowerCase()} icon`}
-              >
+            <div
+              className="sideMenuLink"
+              key={item.text}
+              data-key={`${item.text.toLowerCase()} icon`}
+            >
+              <Link href="/dashboard">
                 <span className="icon">
                   <Image src={item.icon} alt={`${item.text} icon`} fill />
                 </span>
                 <p>{item.text}</p>
-              </div>
-            </Link>
+              </Link>{" "}
+            </div>
           ) : (
             <div
               className="sideMenuLink"
@@ -112,7 +121,9 @@ export default function DashboardSideMenu() {
           <span className="icon">
             <Image src="/sign-out.svg" alt="sign out" fill />
           </span>
-          <p>Logout</p>
+          <Link href="/">
+            <p>Logout</p>
+          </Link>
         </div>
         <p>v.1.2.0</p>
       </div>

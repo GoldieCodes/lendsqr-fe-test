@@ -1,0 +1,60 @@
+@use "variables.scss" as *;
+
+.usersList {
+  .headers {
+    span {
+      position: relative;
+      .filter-form {
+        position: absolute;
+        top: 150%;
+        left: -100%;
+        width: 270px;
+        max-height: 600px;
+        display: grid;
+        gap: 0.5em;
+        padding: 1em;
+        z-index: 100;
+        background-color: white;
+        border: 1px solid #545f7d24;
+        border-radius: 4px;
+        @extend %box-shadow2;
+
+        label {
+          margin-top: 0.4em;
+          font-weight: 500;
+        }
+        input,
+        select {
+          padding: 0.6em;
+          border-width: 1px;
+          font-family: $work-sans;
+          color: $body-text-clr;
+        }
+        select {
+          appearance: none; // Removes the default arrow in most modern browsers
+          -webkit-appearance: none; // Removes the default arrow in WebKit-based browsers (Chrome, Safari)
+          -moz-appearance: none; // Removes the default arrow in Firefox
+
+          background-image: url("/np_next.svg");
+          background-repeat: no-repeat;
+          background-position: right 10px center; // Adjust position as needed
+          padding-right: 30px;
+        }
+        .form-buttons {
+          margin-top: 5px;
+          display: flex;
+          justify-content: space-between;
+          button {
+            width: 45%;
+            padding: 0.7em;
+            &.reset-button {
+              background: none;
+              border: 1px solid #545f7d;
+              color: $body-text-clr;
+            }
+          }
+        }
+      }
+    }
+  }
+}

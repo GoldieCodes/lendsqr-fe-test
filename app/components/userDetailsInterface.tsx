@@ -34,3 +34,31 @@ export interface UserDetailsResponse {
   socials: Social[]
   guarantor: Guarantor[]
 }
+
+//user list interface
+export type UsersListType = UsersInterface[]
+
+export interface UsersInterface {
+  id: string
+  organization: Organization
+  username: string
+  email: string
+  phone_number: string
+  date_joined: string
+  status: Status
+}
+
+export enum Organization {
+  FinCare = "FinCare",
+  FundNow = "FundNow",
+  Lendsqr = "Lendsqr",
+  MoneyTrust = "MoneyTrust",
+  QuickFunds = "QuickFunds",
+}
+
+export enum Status {
+  Active = "Active",
+  Blacklisted = "Blacklisted",
+  Inactive = "Inactive",
+  Pending = "Pending",
+}

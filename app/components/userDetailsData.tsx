@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { UserDetailsResponse } from "./userDetailsInterface"
-import Icon from "@/app/components/icon"
+import Icon from "@/app/components/Icon"
 
 const detailHeaders = [
   "General Details",
@@ -12,50 +12,33 @@ const detailHeaders = [
   "App and System",
 ]
 
-const refreshRate = 100 * 60 * 60 * 24
+//THE MAIN COMPONENT EXPORT
 
 export default function UserDetailsData() {
   const [userDetails, setUserDetails] = useState<UserDetailsResponse | null>(
-    () => {
-      const details = localStorage.getItem("userDetails")
-      const time = localStorage.getItem("userDetailsTimestamp")
-      if (details && time) {
-        const parseData: UserDetailsResponse = JSON.parse(details)
-        const parseTime = parseInt(time, 10)
-        const timeNow = Date.now()
-
-        if (timeNow - parseTime < refreshRate) return parseData
-      }
-      return null
-    }
+    () => initFetchData()
   )
 
-  useEffect(() => {
-    async function fetchData(): Promise<UserDetailsResponse | null> {
-      try {
-        const response = await fetch(
-          "https://run.mocky.io/v3/196e9e5e-be72-435b-98d8-53c41270a5e3"
-        )
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok")
-        }
-
-        const data: UserDetailsResponse = await response.json()
-        localStorage.setItem("userDetails", JSON.stringify(data))
-        localStorage.setItem("userDetailsTimestamp", Date.now().toString())
-        console.log("it ran anyway")
-        return data
-      } catch (error) {
-        console.error("Error fetching data:", error)
-        return null // Returning null in case of an error
+  async function fetchData() {
+    try {
+      const response = await fetch(
+        "https://run.mocky.io/v3/196e9e5e-be72-435b-98d8-53c41270a5e3"
+      )
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
       }
+      const data: UserDetailsResponse = await response.json()
+      localStorage.setItem("userDetails", JSON.stringify(data))
+      localStorage.setItem("userDetailsFetchTimestamp", Date.now().toString())
+      setUserDetails(data)
+    } catch (error) {
+      throw new Error("Data fetch could not complete")
     }
+  }
 
+  useEffect(() => {
     if (!userDetails) {
-      fetchData().then((data) => {
-        if (data) setUserDetails(data)
-      })
+      fetchData()
     }
   }, [userDetails])
 
@@ -139,4 +122,19 @@ export default function UserDetailsData() {
       </section>
     </section>
   )
+}
+// MAIN COMPONENT FUNCTION ENDS.
+
+function initFetchData() {
+  const refreshRate = 100 * 60 * 60 * 24
+  const data = localStorage.getItem("userDetails")
+  const dataStamptime = localStorage.getItem("userFetchTimestamp")
+  if (data && dataStamptime) {
+    const parseData = JSON.parse(data)
+    const parseTime = parseInt(dataStamptime, 10)
+    const timeNow = Date.now()
+
+    if (timeNow - parseTime < refreshRate) return parseData
+    else return null
+  }
 }

@@ -17,12 +17,12 @@ $avenir-next: var(--font-avenirNext);
 $work-sans: var(--font-workSans);
 %hover-gradient-bg {
   &:hover {
-    background: linear-gradient(45deg, $green, $main-accent);
+    background: linear-gradient(45deg, #d5e76f, $main-accent);
   }
 }
 %box-shadow {
   box-shadow: 3px 5px 20px 0 #0000000a;
 }
 %box-shadow2 {
-  box-shadow: 0 0 5px 0 #0f0f0f1c;
+  box-shadow: 0 0 20px 0 #2424241c;
 }

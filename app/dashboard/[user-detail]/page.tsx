@@ -1,8 +1,12 @@
-import Icon from "@/app/components/icon"
+import Icon from "@/app/components/Icon"
 import Link from "next/link"
-import UserDetailsData from "@/app/components/userDetailsData"
+import UserDetailsData from "@/app/components/UserDetailsData"
 
-export default function UserDetails() {
+export default function UserDetail({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
   return (
     <div className="dashbContentWrapper">
       <main className="userDetails">

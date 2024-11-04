@@ -5,7 +5,7 @@
 }
 
 @mixin desktopScreen {
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1200px) {
     @content;
   }
 }
@@ -14,9 +14,15 @@
   display: flex;
   justify-content: $alignment;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 @mixin widthHeight($width, $height) {
-  width: $width;
+  max-width: $width;
   height: $height;
+}
+
+@mixin bgAndTextClr($clr) {
+  color: $clr;
+  background-color: rgba($clr, 0.1);
 }

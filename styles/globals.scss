@@ -2,8 +2,9 @@
 @use "variables.scss" as *;
 @use "nav.scss" as navmenu;
 @use "sidemenu.scss" as sidemenu;
-@use "dashboardcontent.scss" as dashbcontent;
+@use "userslist.scss" as *;
 @use "userdetails.scss" as *;
+@use "filterbox.scss" as *;
 
 html,
 body {
@@ -13,6 +14,7 @@ body {
   font-family: $work-sans, sans-serif;
   line-height: 16.42px;
   font-size: clamp(12.5px, 3vw, 14px);
+  background: white;
   color: $dark-blue;
 }
 
@@ -51,6 +53,7 @@ button {
   padding: 1.2em;
   font-size: 14px;
   font-weight: 600;
+  font-family: $work-sans;
   line-height: 19.12px;
   letter-spacing: 0.1em;
   text-align: center;
@@ -65,10 +68,11 @@ button {
   height: 30px;
   display: inline-block;
 }
-input {
+input,
+select {
   width: 100%;
   padding: 1.2em;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 14px;
   line-height: 19.12px;
   border: 2px solid rgba($body-text-clr, 0.15);
@@ -87,4 +91,36 @@ input {
   display: flex;
 
   margin-top: 100px;
+}
+.dashbContentWrapper {
+  width: 90%;
+  margin: auto;
+  @include desktopScreen {
+    padding: 60px;
+    width: 100%;
+  }
+}
+.loading {
+  &::before {
+    content: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba($color: #000000, $alpha: 1);
+    .icon,
+    .icon > img {
+      @include widthHeight(40px, 40px);
+      animation: rotate 200ms timing-function ease infinite;
+    }
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(180);
+  }
+  to {
+    transform: rotate(360);
+  }
 }

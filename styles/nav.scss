@@ -3,72 +3,110 @@
 
 .main-nav {
   @include flex(space-between);
-  padding: 26px 29px;
-  @extend %box-shadow;
-  position: fixed;
+  padding: 1em 0;
+  position: relative;
   top: 0;
-  width: 100%;
+  width: 90%;
+  margin: auto;
   max-width: 1440px;
-  height: 100px;
   background: rgba(255, 255, 255, 0.014);
   backdrop-filter: blur(80px);
   z-index: 100;
-}
-.avatar-section {
-  width: 20%;
-  font-size: 16px;
-  @include flex(space-between);
-  a {
-    text-decoration: underline;
-    font-weight: 500;
+  @include desktopScreen {
+    width: 100%;
+    position: fixed;
+    padding: 26px 29px;
+    height: 100px;
+    box-shadow: 3px 5px 20px 0 #0000000a;
   }
-  .user {
+
+  .mobileMenuArea {
     @include flex(space-between);
-    width: 50%;
-    p {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    right: 0;
+
+    & > div {
+      width: 60%;
+      @include flex(space-between);
+    }
+    @include desktopScreen {
+      position: initial;
+      width: initial;
+      padding: 0 60px;
+    }
+
+    .searchBar {
+      position: relative;
+      width: 80%;
+      @include desktopScreen {
+        width: 400px;
+      }
+
+      input {
+        border-radius: 8px;
+        border: 1px solid rgba($dark-blue, 0.2);
+        padding: 10px 18px;
+        font-family: $work-sans;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.42px;
+        text-align: left;
+        color: $body-text-clr;
+      }
+      // THIS SPAN IS FOR THE SEARCH ICON ON THE SEARCH INPUT
+      span {
+        position: absolute;
+        height: 100%;
+        width: clamp(20px, 20%, 56px);
+        background-color: $main-accent;
+        top: 0;
+        right: 0;
+        border-radius: 0 8px 8px 0;
+      }
+    }
+  }
+
+  .avatar-section {
+    width: 20%;
+    font-size: 16px;
+    @include flex(space-between);
+    a {
+      text-decoration: underline;
       font-weight: 500;
     }
-  }
-}
-.icon {
-  &.avatar {
-    @include widthHeight(48px, 48px);
-  }
-  &.bell {
-    @include widthHeight(26px, 26px);
-  }
-  &.arrow {
-    @include widthHeight(10px, 8px);
-  }
-  &.search {
-    display: grid;
-    place-content: center;
-    img {
-      @include widthHeight(20px, 20px);
+    .user {
+      @include flex(space-between);
+      width: 50%;
+      p {
+        font-weight: 500;
+      }
     }
   }
-}
-.searchBar {
-  position: relative;
-  width: 400px;
-  input {
-    border-radius: 8px;
-    border: 1px solid rgba($dark-blue, 0.2);
-    padding: 10px 18px;
-    font-family: $work-sans;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16.42px;
-    text-align: left;
-    color: $body-text-clr;
-  }
-  span {
-    position: absolute;
-    height: 100%;
-    width: 56px;
-    background-color: $main-accent;
-    top: 0;
-    right: 0;
-    border-radius: 0 8px 8px 0;
+  // Keeping this unnested so that it can affect every icon class in the nav area
+  .icon {
+    &.avatar {
+      @include widthHeight(48px, 48px);
+    }
+    &.bell {
+      @include widthHeight(26px, 26px);
+    }
+    &.arrow {
+      @include widthHeight(10px, 8px);
+    }
+    &.search {
+      display: grid;
+      place-content: center;
+      img {
+        @include widthHeight(20px, 20px);
+      }
+    }
+    &.menu {
+      font-size: 2em;
+      @include desktopScreen {
+        display: none;
+      }
+    }
   }
 }
