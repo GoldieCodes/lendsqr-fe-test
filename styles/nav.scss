@@ -1,82 +1,100 @@
 @use "mixins.scss" as *;
 @use "variables.scss" as *;
 
+/* Main Navigation Bar */
 .main-nav {
-  @include flex(space-between);
+  @include flex(
+    space-between
+  ); // Positions main nav items with space between them
   padding: 1em 0;
   position: relative;
   top: 0;
-  width: 90%;
+  width: 90%; // Sets responsive width, centered
   margin: auto;
   max-width: 1440px;
-  background: rgba(255, 255, 255, 0.014);
-  backdrop-filter: blur(80px);
+  background: rgba(255, 255, 255, 0.014); // Subtle translucent background
+  backdrop-filter: blur(80px); // Blurs background elements behind nav
   z-index: 100;
+
+  /* Adjustments for desktop screens */
   @include desktopScreen {
     width: 100%;
-    position: fixed;
+    position: fixed; // Fixes nav to the top of the viewport
     padding: 26px 29px;
     height: 100px;
-    box-shadow: 3px 5px 20px 0 #0000000a;
+    box-shadow: 3px 5px 20px 0 #0000000a; // Light shadow for depth
   }
 
+  /* Mobile menu area container */
   .mobileMenuArea {
     @include flex(space-between);
     position: absolute;
     width: 100%;
-    top: 100%;
+    top: 100%; // Positions menu below nav bar
     right: 0;
 
+    /* Wrapper for mobile menu items */
     & > div {
       width: 80%;
       @include flex(space-between);
+
+      /* Adjust width for desktop screens */
       @include desktopScreen {
         width: 100%;
       }
     }
+
+    /* Reset mobile menu positioning for desktop screens */
     @include desktopScreen {
       position: initial;
       width: initial;
     }
 
+    /* Search bar styling */
     .searchBar {
       position: relative;
-      width: 80%;
+      width: 80%; // Responsive width for mobile
+
+      /* Larger search bar width for desktop */
       @include desktopScreen {
         width: 400px;
       }
 
+      /* Search input field */
       input {
         border-radius: 8px;
         border: 1px solid rgba($dark-blue, 0.2);
         padding: 10px 18px;
         font-family: $work-sans;
         font-size: 14px;
-        font-weight: 400;
-        line-height: 16.42px;
-        text-align: left;
         color: $body-text-clr;
       }
-      // THIS SPAN IS FOR THE SEARCH ICON ON THE SEARCH INPUT
+
+      /* Search icon within input */
       span {
         position: absolute;
         height: 100%;
-        width: clamp(20px, 20%, 56px);
+        width: clamp(20px, 20%, 56px); // Scales width based on screen size
         background-color: $main-accent;
         top: 0;
         right: 0;
-        border-radius: 0 8px 8px 0;
+        border-radius: 0 8px 8px 0; // Rounds right corners for icon area
       }
     }
   }
+
+  /* Anchor links styling */
   a {
     text-decoration: underline;
     font-weight: 500;
 
+    /* Hidden on desktop; shown on mobile only */
     &.for-desktop {
       width: 0;
       display: none;
     }
+
+    /* Toggles display of mobile/desktop links */
     @include desktopScreen {
       &.for-mobile {
         width: 0;
@@ -88,49 +106,70 @@
       }
     }
   }
+
+  /* Avatar and user section */
   .avatar-section {
     width: 50%;
     font-size: 16px;
-    @include flex(right);
+    @include flex(right); // Aligns content to the right side
     gap: 20px;
+
+    /* Desktop-specific adjustments */
     @include desktopScreen {
       width: 30%;
       gap: 20px;
     }
 
+    /* User information within avatar section */
     .user {
       @include flex(space-around);
       gap: 5px;
+
+      /* Desktop layout for user info */
       @include desktopScreen {
         justify-content: space-around;
         gap: 0;
         width: 40%;
       }
+
+      /* User name styling */
       p {
         font-weight: 500;
       }
     }
   }
-  // Keeping this unnested so that it can affect every icon class in the nav area
+
+  /* Icon styling for various icons in nav */
   .icon {
+    /* Avatar icon styling */
     &.avatar {
-      @include widthHeight(48px, 48px);
+      @include widthHeight(48px, 48px); // Consistent avatar sizing
     }
+
+    /* Notification bell icon */
     &.bell {
       @include widthHeight(26px, 26px);
     }
+
+    /* Arrow icon */
     &.arrow {
       @include widthHeight(10px, 8px);
     }
+
+    /* Search icon within button */
     &.search {
       display: grid;
       place-content: center;
+
+      /* Sets image dimensions for search icon */
       img {
         @include widthHeight(20px, 20px);
       }
     }
+
+    /* Menu icon for mobile, hidden on desktop */
     &.menu {
-      font-size: 2em;
+      font-size: 2em; // Enlarged for visibility on mobile
       @include desktopScreen {
         display: none;
       }

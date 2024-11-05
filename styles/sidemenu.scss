@@ -1,71 +1,90 @@
 @use "variables.scss" as *;
 @use "mixins.scss" as *;
 
+/* Side Menu Component */
 .sidemenu {
-  min-width: 283px;
+  min-width: 283px; // Fixed width for consistent layout
   position: absolute;
-  left: -100%;
+  left: -100%; // Off-screen initially for slide-in effect
   height: fit-content;
   padding: 39px 0 20px;
   display: grid;
-  gap: 35px;
+  gap: 35px; // Space between menu items
   font-size: 16px;
   line-height: 18.77px;
-  color: $dark-blue;
+  color: $dark-blue; // Main text color
   background: white;
-  z-index: 20;
-  @extend %box-shadow;
-  transition: all 500ms ease;
+  z-index: 20; // Ensures menu appears above other elements
+  @extend %box-shadow2; // Applies shadow mixin for depth
+  transition: all 500ms ease; // Smooth slide-in/out transition
+
+  /* Reset positioning for desktop view */
   @include desktopScreen {
     position: initial;
   }
+
+  /* Slide-in effect when menu is open on mobile */
   &.openMobileSideMenu {
     left: 0;
   }
 
+  /* Individual side menu link styling */
   .sideMenuLink {
-    opacity: 60%;
-    @include flex(start);
+    opacity: 60%; // Low opacity for inactive links
+    @include flex(start); // Aligns icon and text to start
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 10px; // Space between icon and text
     padding: 15px 29px;
+
+    /* Icon size within each menu link */
     .icon {
       width: 19px;
       height: 15.2px;
     }
+
+    /* Full opacity for the first link */
     &:first-child {
       opacity: 1;
     }
   }
 
+  /* Highlighted style for specific menu item */
   [data-key="users icon"] {
-    border-left: 3px solid $main-accent;
-    background-color: rgba($main-accent, 0.06);
-    opacity: 1;
+    border-left: 3px solid $main-accent; // Accent border to highlight
+    background-color: rgba($main-accent, 0.06); // Light background for emphasis
+    opacity: 1; // Ensures full visibility
     cursor: pointer;
+
+    /* Link layout within highlighted item */
     a {
       @include flex(space-between);
       gap: 10px;
     }
   }
+
+  /* Section title styling */
   h3 {
     font-size: 12px;
     font-weight: 500;
     line-height: 14.08px;
     text-align: left;
     color: $body-text-clr;
-    padding-left: 29px;
-    margin-bottom: 15px;
+    padding-left: 29px; // Indentation for alignment
+    margin-bottom: 15px; // Spacing below the title
   }
+
+  /* Logout section styling */
   .logout {
-    border-top: 1px solid rgba($dark-blue, 0.1);
+    border-top: 1px solid rgba($dark-blue, 0.1); // Subtle divider
     padding-top: 5px;
+
+    /* Logout text styling */
     & > p {
       font-size: 12px;
       font-weight: 400;
       line-height: 14.08px;
       text-align: left;
-      margin: 30px 29px 0;
+      margin: 30px 29px 0; // Space above and side padding
     }
   }
 }

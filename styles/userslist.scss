@@ -1,39 +1,69 @@
+// THIS STYLESHEET TARGETS THE CLASSES IN THE ./APP/DASHBOARD/PAGE.TSX FILE
+/***************************************************************************/
+
 @use "mixins.scss" as *;
 @use "variables.scss" as *;
 
+// Main dashboard content body
 .dashboardContentBody {
+  //********** GENERAL STYLES *********************//
+  h1 {
+    margin-bottom: 27px;
+  }
+  ul {
+    //flex any ul element
+    @include flex(space-between);
+    text-align: left;
+    gap: 5px;
+  }
+
+  // ************** NESTED STYLES ****************//
+
+  // Overview section of the dashboard
   .overview {
     @include flex(space-between);
+    gap: 1em;
     @include tabScreen {
       gap: 27px;
     }
   }
+
+  // Individual item boxes of the overview section
   .itemBox {
     @extend %box-shadow2;
     border: 1px solid #213f7d0f;
     border-radius: 4px;
     padding: 20px 30px;
-    @include widthHeight(240px, 160px);
-    margin: 27px 0;
+    max-width: 240px;
+    height: 160px;
     flex-grow: 1;
     min-width: 140px;
-    max-width: 300px;
     display: grid;
     place-content: center;
+    text-align: center;
+
     @include desktopScreen {
+      text-align: left;
       display: initial;
     }
 
+    // Icon within each item box
     .icon {
       @include widthHeight(40px, 40px);
       border-radius: 50%;
       display: grid;
       place-content: center;
+      margin: auto;
+
       img {
         @include widthHeight(24px, 24px);
       }
+      @include desktopScreen {
+        margin: initial;
+      }
     }
 
+    // Text styles within item boxes
     p {
       text-transform: uppercase;
       font-weight: 500;
@@ -46,119 +76,147 @@
         line-height: 28.15px;
       }
     }
+    // Color styles for icons based on data-key attribute
+    [data-key="users"] {
+      .icon {
+        background-color: rgba($icon-purplish, 0.1);
+      }
+    }
+    [data-key="active users"] {
+      .icon {
+        background-color: rgba($light-blue, 0.1);
+      }
+    }
+    [data-key="users with loans"] {
+      .icon {
+        background-color: rgba($icon-dull-red, 0.1);
+      }
+    }
+    [data-key="users with savings"] {
+      .icon {
+        background-color: rgba($icon-red, 0.1);
+      }
+    }
   }
-}
-[data-key="users"] {
-  .icon {
-    background-color: rgba($icon-purplish, 0.1);
-  }
-}
-[data-key="active users"] {
-  .icon {
-    background-color: rgba($light-blue, 0.1);
-  }
-}
-[data-key="users with loans"] {
-  .icon {
-    background-color: rgba($icon-dull-red, 0.1);
-  }
-}
-[data-key="users with savings"] {
-  .icon {
-    background-color: rgba($icon-red, 0.1);
-  }
-}
 
-// Styles for the status buttons
-.statusPill {
-  padding: 0.5rem 1.2rem;
-  line-height: 16.42px;
-  text-align: center;
-  border-radius: 100px;
-  max-width: 100px;
+  // Styles for the user list section
+  .usersList {
+    @extend %box-shadow2;
+    color: $body-text-clr;
+    padding: 30px;
+    overflow: scroll;
+    white-space: nowrap;
+    margin: 27px 0;
 
-  &.inactive {
-    @include bgAndTextClr($body-text-clr);
-  }
-  &.pending {
-    @include bgAndTextClr($gold);
-  }
-  &.active {
-    @include bgAndTextClr($green);
-  }
-  &.blacklisted {
-    @include bgAndTextClr($pill-red);
-  }
-}
+    @include desktopScreen {
+      overflow: visible;
+    }
 
-//Styles for the filter data rows
-.usersList {
-  @extend %box-shadow2;
-  color: $body-text-clr;
-  padding: 30px;
-  overflow-x: scroll;
-  white-space: nowrap;
+    // Icon styles for user list items
+    *.icon,
+    *.icon > img {
+      @include widthHeight(14px, 14px);
+      cursor: pointer;
+    }
 
-  *.icon,
-  *.icon > img {
-    @include widthHeight(14px, 14px);
-    cursor: pointer;
-  }
-  .contentWrapper {
-    min-width: 1000px;
-  }
-  .headers {
-    padding-bottom: 20px;
-  }
-  ul,
-  .headers,
-  .headers > span {
-    @include flex(space-between);
-    text-align: left;
-    gap: 5px;
-  }
-  .headers span {
-    width: calc(100% / 8);
-    justify-content: start;
-  }
-  h4 {
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 14.08px;
-    text-align: left;
-    text-transform: uppercase;
-  }
-  .singleUser {
-    padding: 20px 0;
-    border-bottom: 1px solid rgba($dark-blue, 0.1);
-    position: relative;
-    li {
-      width: calc(100% / 7);
-      &.email {
-        width: (100%/7) * 1.5;
+    .contentWrapper {
+      //this wraps the user list area, helping with mobile responsiveness restrictions
+      min-width: 800px;
+    }
+
+    // These are the filter tabs on the user list
+    .headers {
+      padding-bottom: 20px;
+
+      &,
+      & > span {
+        //direct span to flex the tabs (h4 and filter icon)
+        @include flex(space-between);
+        text-align: left;
+        gap: 5px;
+      }
+
+      & span {
+        //the span holds the filter icon
+        width: calc(100% / 8);
+        justify-content: start;
+      }
+      h4 {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 14.08px;
+        text-align: left;
+        text-transform: uppercase;
       }
     }
 
-    .viewMoreOptions {
-      cursor: pointer;
-    }
-    .moreOptionsDialog {
-      width: 180px;
-      padding: 1.1em 1.5em;
-      position: absolute;
-      bottom: 100%;
-      left: 85%;
-      border-radius: 4px;
-      background: white;
-      @extend %box-shadow2;
-      border: 1px solid #545f7d0a;
-      z-index: 100;
+    // Styling the user list per list item
+    .singleUser {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba($dark-blue, 0.1);
+      position: relative;
 
-      a {
-        @include flex(left);
-        gap: 0.7em;
-        padding: 0.5em 0;
-        font-weight: 500;
+      li {
+        width: calc(100% / 7);
+
+        &.email {
+          width: (100%/7) * 1.5;
+        }
+      }
+
+      // The three vertical dots icon that can be clicked to view user details
+      .viewMoreOptions {
+        cursor: pointer;
+      }
+
+      // Popup dialog that opens when the vertical dots icon is clicked
+      .moreOptionsDialog {
+        width: 180px;
+        padding: 1.1em 1.5em;
+        position: absolute;
+        bottom: 100%;
+        left: 85%;
+        border-radius: 4px;
+        background: white;
+        @extend %box-shadow2;
+        border: 1px solid #545f7d0a;
+        z-index: 100;
+
+        // Links inside the options dialog
+        a {
+          @include flex(left);
+          gap: 0.7em;
+          padding: 0.5em 0;
+          font-weight: 500;
+        }
+      }
+      // Status buttons in the user list
+      .statusPill {
+        padding: 0.5rem 1.2rem;
+        line-height: 16.42px;
+        text-align: center;
+        border-radius: 100px;
+        max-width: 100px;
+
+        // Inactive status style
+        &.inactive {
+          @include bgAndTextClr($body-text-clr);
+        }
+
+        // Pending status style
+        &.pending {
+          @include bgAndTextClr($gold);
+        }
+
+        // Active status style
+        &.active {
+          @include bgAndTextClr($green);
+        }
+
+        // Blacklisted status style
+        &.blacklisted {
+          @include bgAndTextClr($pill-red);
+        }
       }
     }
   }

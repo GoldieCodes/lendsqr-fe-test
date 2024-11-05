@@ -94,9 +94,9 @@ select {
 }
 .dashbContentWrapper {
   width: 90%;
-  margin: auto;
+  margin: 0 auto;
   @include desktopScreen {
-    padding: 60px;
+    padding: min(3.5vw, 60px);
     width: 100%;
   }
 }

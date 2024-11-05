@@ -2,18 +2,20 @@
 @use "../variables.scss" as *;
 @use "../mixins.scss" as *;
 
+/* Overlay: full-screen darkened background for modal */
 .overlay {
-  position: fixed;
+  position: fixed; // Ensures overlay covers entire screen
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8); // Semi-transparent black
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; // Centers modal within viewport
 }
 
+/* Main modal styling */
 .modal {
   background-color: white;
   padding: 20px;
@@ -22,36 +24,49 @@
   max-width: 400px;
   width: 90%;
   text-align: center;
+
+  /* Expands modal to full width on tablet and all bigger screens */
   @include tabScreen {
     width: 100%;
   }
 
+  /* Text paragraph within modal */
   p {
-    font-family: $avenir-next;
+    font-family: $avenir-next; // Custom font from variables
     font-size: 15px;
     font-weight: 400;
     line-height: 27.32px;
     color: $body-text-clr;
     margin-bottom: 59px;
+
+    /* Increases font size for readability on larger screens */
     @include tabScreen {
       font-size: 18px;
     }
   }
+
+  /* Action button container */
   .modalActionButtons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; // Aligns buttons side by side
   }
+
+  /* Modal action button styling */
   button {
     font-family: $avenir-next;
     font-size: 13px;
     width: 47%;
     padding: 1rem;
     color: white;
-    background-color: rgba($body-text-clr, 0.8);
+    background-color: rgba($body-text-clr, 0.8); // Semi-opaque background
+
+    /* Styles the last button uniquely (e.g., as primary action) */
     &:last-child {
       background-color: $dark-blue;
       font-weight: 600;
     }
+
+    /* Increases button font size on tablets */
     @include tabScreen {
       font-size: 15px;
     }

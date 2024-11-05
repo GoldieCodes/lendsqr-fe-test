@@ -2,7 +2,9 @@
 import React, { useState } from "react"
 import { Status, Organization } from "./userDetailsInterface"
 
+// Define the structure of the props passed to the FilterUserList component
 interface FilterFormProps {
+  // Function to handle filter action with filter values as a parameter
   onFilter: (filters: {
     organization: string
     username: string
@@ -11,9 +13,11 @@ interface FilterFormProps {
     phoneNumber: string
     status: string
   }) => void
+  // Function to handle reset action
   onReset: () => void
 }
 
+// Interface defining the filter values structure
 export interface FilterValues {
   organization: string
   username: string
@@ -23,7 +27,9 @@ export interface FilterValues {
   status: string
 }
 
+// Component for filtering a user list based on various criteria
 const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
+  // State to store filter values
   const [filters, setFilters] = useState<FilterValues>({
     organization: "",
     username: "",
@@ -33,17 +39,21 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
     status: "",
   })
 
+  // Event handler for input and select field changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target
+    // Update the state with new filter values
     setFilters((prevFilters) => ({ ...prevFilters, [name]: value }))
   }
 
+  // Trigger the onFilter function with the current filters
   const handleFilter = () => {
     onFilter(filters)
   }
 
+  // Reset filter values and trigger the onReset function
   const handleReset = () => {
     setFilters({
       organization: "",
@@ -58,6 +68,7 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
 
   return (
     <div className="filter-form">
+      {/* Organization filter */}
       <label htmlFor="organization">Organization</label>
       <select
         name="organization"
@@ -76,6 +87,8 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
           {Organization.QuickFunds}
         </option>
       </select>
+
+      {/* Username filter */}
       <label htmlFor="username">Username</label>
       <input
         type="text"
@@ -85,7 +98,9 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
         placeholder="User"
         className="form-input"
       />
-      <label htmlFor="Email">Email</label>
+
+      {/* Email filter */}
+      <label htmlFor="email">Email</label>
       <input
         type="email"
         name="email"
@@ -94,6 +109,8 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
         placeholder="Email"
         className="form-input"
       />
+
+      {/* Date filter */}
       <label htmlFor="date">Date</label>
       <input
         type="date"
@@ -102,6 +119,8 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
         onChange={handleChange}
         className="form-input"
       />
+
+      {/* Phone Number filter */}
       <label htmlFor="phoneNumber">Phone Number</label>
       <input
         type="tel"
@@ -111,6 +130,8 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
         placeholder="Phone Number"
         className="form-input"
       />
+
+      {/* Status filter */}
       <label htmlFor="status">Status</label>
       <select
         name="status"
@@ -119,12 +140,13 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
         className="form-input"
       >
         <option value="">Select</option>
-        <option value="Active">{Status.Active}</option>
-        <option value="Inactive">{Status.Inactive}</option>
-        <option value="Pending">{Status.Pending}</option>
-        <option value="Blacklisted">{Status.Blacklisted}</option>
+        <option value={Status.Active}>{Status.Active}</option>
+        <option value={Status.Inactive}>{Status.Inactive}</option>
+        <option value={Status.Pending}>{Status.Pending}</option>
+        <option value={Status.Blacklisted}>{Status.Blacklisted}</option>
       </select>
 
+      {/* Action buttons for filtering and resetting */}
       <div className="form-buttons">
         <button type="button" onClick={handleReset} className="reset-button">
           Reset

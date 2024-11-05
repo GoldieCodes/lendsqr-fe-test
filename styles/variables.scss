@@ -1,6 +1,8 @@
+// all the main colors used across the site
+$body-text-clr: #545f7d;
 $dark-blue: #213f7d;
-$light-blue: #5718ff;
 $main-accent: #39cdcc;
+$light-blue: #5718ff;
 $pill-red: #e4033b;
 $icon-red: #ff3366;
 $icon-dull-red: #f55f44;
@@ -8,21 +10,28 @@ $icon-purplish: #df18ff;
 $green: #39cd62;
 $gold: #e9b200;
 $body-text-clr: #545f7d;
-%mobile-wrapper {
-  width: 90%;
-  margin: 0 auto;
-}
 $sf-compact: var(--font-sfCompact);
 $avenir-next: var(--font-avenirNext);
 $work-sans: var(--font-workSans);
+
+// a gradient style option for the hover state of button
 %hover-gradient-bg {
   &:hover {
     background: linear-gradient(45deg, #d5e76f, $main-accent);
   }
 }
+
+// handles the padding at the edges of mobile screens
+%mobile-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+// a very light box shadow implemented on the horizontal site navigation bar
 %box-shadow {
   box-shadow: 3px 5px 20px 0 #0000000a;
 }
+// an alternative box shadow for better shadow emphasis used more often
 %box-shadow2 {
   box-shadow: 0 0 20px 0 #2424241c;
 }

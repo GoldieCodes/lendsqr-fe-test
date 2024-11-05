@@ -1,5 +1,5 @@
 "use client"
-import login from "./login.module.scss"
+import login from "@/styles/modules/login.module.scss"
 import Image from "next/image"
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from "formik"
@@ -15,21 +15,21 @@ import { FirebaseError } from "firebase/app"
 import Modal from "./components/Modal"
 import { useRouter } from "next/navigation"
 
-//this function defines all the logic for the login page
+// MAIN FUNCTION COMPONENT DEFINING ALL LOGIC FOR THE LOGIN PAGE
 export default function Login() {
-  //modal variables
+  // STATES FOR MANAGING MODAL VISIBILITY AND STATUS MESSAGE
   const [isModalOpen, setModalOpen] = useState(false)
   const [statusMessage, setStatusMessage] = useState("")
   const [createAccount, setCreateAccount] = useState(false)
   const router = useRouter()
 
-  //this unit defines the show/hide password feature on the form
+  // STATE AND FUNCTION TO TOGGLE PASSWORD VISIBILITY IN FORM
   const [hidePassword, setHidePassword] = useState(true)
   function showHiddenPassword(): void {
     setHidePassword(!hidePassword)
   }
 
-  //
+  // FUNCTION TO HANDLE USER AUTHENTICATION WITH FIREBASE
   const handleAuth = (
     authFunction: (
       auth: Auth,
@@ -42,17 +42,17 @@ export default function Login() {
   ) => {
     authFunction(auth, email, password)
       .then((userCredential) => {
+        // REDIRECT USER TO DASHBOARD ON SUCCESSFUL LOGIN
         router.push("/dashboard")
       })
       .catch((error) => {
+        // HANDLE AUTHENTICATION ERRORS
         fixErrorOrCreateUser(error)
       })
       .finally(() => setSubmitting(false))
   }
 
-  // Calling the helper function based on `createAccount` value
-
-  //the modal function
+  // FUNCTION TO HANDLE AND DISPLAY SPECIFIC ERROR MESSAGES IN A MODAL
   function fixErrorOrCreateUser(error: FirebaseError): void {
     setModalOpen(true)
     if (error.code === "auth/invalid-credential") {
@@ -67,28 +67,38 @@ export default function Login() {
       setStatusMessage(error.code)
     }
   }
+
+  // FUNCTION TO CLOSE THE MODAL
   const closeModal = () => {
     setModalOpen(false)
   }
 
   return (
     <>
+      {/* HEADER SECTION WITH LENDSQR LOGO */}
       <header className={`logo ${login.logo}`}>
         <Image src="/logo.svg" alt="Lendsqr logo" fill />
       </header>
+
+      {/* MAIN CONTENT AREA FOR THE LOGIN FORM */}
       <main className={login.main}>
         <aside className={login.illustration}>
+          {/* ILLUSTRATION ON THE SIDE OF THE LOGIN FORM */}
           <Image
             src="/pablo-login.svg"
             alt="colorful illustration person walking through door"
             fill
           />
         </aside>
+
         <section>
           <div className={login.title}>
+            {/* WELCOME MESSAGE AND FORM HEADER */}
             <h1>Welcome!</h1>
             <p>Enter details to login.</p>
           </div>
+
+          {/* LOGIN FORM WITH FORMIK AND YUP VALIDATION */}
           <Formik
             initialValues={{
               email: "",
@@ -109,16 +119,18 @@ export default function Login() {
                 setSubmitting,
               ]
               if (createAccount) {
+                // HANDLE ACCOUNT CREATION
                 handleAuth(createUserWithEmailAndPassword, ...values)
               } else {
+                // HANDLE LOGIN AUTHENTICATION
                 handleAuth(signInWithEmailAndPassword, ...values)
               }
             }}
           >
             {({ isSubmitting }) => (
               <Form className={login.form}>
+                {/* EMAIL INPUT FIELD WITH LABEL FOR ACCESSIBILITY */}
                 <div className={login.emailInput}>
-                  {/* This label does not show up in the design. It's strictly for accessibility. */}
                   <label htmlFor="email" className={login.srOnly}>
                     Email
                   </label>
@@ -127,14 +139,14 @@ export default function Login() {
                     id="email"
                     type="email"
                     placeholder="Email"
-                    className=""
                   />
                   <span className={login.formError}>
                     <ErrorMessage name="email" />
                   </span>
                 </div>
+
+                {/* PASSWORD INPUT FIELD WITH TOGGLE FOR SHOW/HIDE PASSWORD */}
                 <div className={login.passwordInput}>
-                  {/* This label does not show up in the design. It's strictly for accessibility. */}
                   <label htmlFor="password" className={login.srOnly}>
                     Password
                   </label>
@@ -157,8 +169,10 @@ export default function Login() {
                   </span>
                 </div>
 
+                {/* FORGOT PASSWORD LINK */}
                 <p className={login.passwordActions}>FORGOT PASSWORD?</p>
 
+                {/* SUBMIT BUTTON WHICH SHOWS DIFFERENT TEXT BASED ON FORM STATE */}
                 <button type="submit">
                   {isSubmitting
                     ? "Submitting..."
@@ -171,7 +185,8 @@ export default function Login() {
           </Formik>
         </section>
       </main>
-      {/* Render Modal */}
+
+      {/* MODAL COMPONENT FOR DISPLAYING ERROR MESSAGES */}
       <Modal
         isOpen={isModalOpen}
         message={statusMessage}

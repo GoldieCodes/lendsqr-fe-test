@@ -1,31 +1,44 @@
 @use "mixins.scss" as *;
 @use "variables.scss" as *;
 
+// THIS STYLESHEET TARGETS THE CLASSES IN THE ./APP/DASHBOARD/[user-detail]/PAGE.TSX FILE
+/****************************************************************************************/
+
+/* User Details Component */
 .userDetails {
   width: 100%;
 
+  /* Header section for navigation and actions */
   header {
     .linkBack {
       width: max-content;
       font-size: 16px;
       line-height: 18.77px;
       cursor: pointer;
-      @include flex(start);
+      @include flex(start); // Aligns content to start horizontally
       gap: 10px;
+
+      /* Icon sizing within linkBack */
       .icon,
       .icon img {
         @include widthHeight(30px, 30px);
       }
     }
+
+    /* Button group alignment and spacing */
     .buttonGroup,
     .buttonGroup span {
       @include flex(space-between);
       gap: 20px;
-      flex-wrap: wrap;
+      flex-wrap: wrap; // Wrap buttons if they exceed width
     }
+
+    /* Margin for the button group */
     .buttonGroup {
       margin: 18px 0;
     }
+
+    /* Button styling for actions */
     button {
       text-transform: uppercase;
       line-height: 16.42px;
@@ -34,10 +47,14 @@
       background-color: white;
       color: $main-accent;
       padding: 11.5px 16px;
+
+      /* Hover effect */
       &:hover {
         background: $main-accent;
         color: white;
       }
+
+      /* Specific styling for blacklist button */
       &.blacklist {
         border-color: $pill-red;
         color: $pill-red;
@@ -49,12 +66,15 @@
     }
   }
 
+  /* User Overview section displaying main details */
   .userOverview {
     @extend %box-shadow2;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin: 38px 0;
+
+    /* Stack layout for tablet screens */
     @include tabScreen {
       flex-wrap: nowrap;
       flex-direction: column;
@@ -63,58 +83,81 @@
       height: 210px;
     }
 
+    /* Top details of the user */
     .topDetails {
       width: 70%;
       @include flex(start);
+
+      /* Responsive styling for tablet screens */
       @include tabScreen {
         flex-wrap: nowrap;
         width: initial;
       }
 
+      /* Inner layout for detailed sections */
       div {
         padding: 29px;
+
+        /* Adds a divider line on tablet screens */
         @include tabScreen {
           border-left: 1px solid rgba($body-text-clr, 0.2);
         }
+
+        /* Removes border from the first div */
         &:first-child {
           border: none;
         }
+
+        /* Avatar and username section */
         &:first-child {
           @include flex(start);
           gap: 12px;
+
           .icon {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             background-color: rgba($dark-blue, 0.16);
             display: grid;
-            place-content: center;
+            place-content: center; // Centers image within icon
+
+            /* Icon image sizing */
             img {
               @include widthHeight(40px, 40px);
             }
           }
         }
+
+        /* Text and icon styling within the second div */
         &:nth-child(2) {
           p {
             font-weight: 500;
             margin-bottom: 8px;
           }
+
           .icon img {
             @include widthHeight(16px, 16px);
           }
         }
+
+        /* Title styling */
         h2 {
           margin-bottom: 8px;
         }
       }
     }
+
+    /* Header section for detailed overview */
     .detailHeaders {
       display: grid;
+
+      /* Alignment for tablet screens */
       @include tabScreen {
         @include flex(space-between);
         flex-wrap: nowrap;
       }
 
+      /* Paragraph styles for detail headers */
       p {
         font-family: $sf-compact;
         font-weight: 500;
@@ -123,10 +166,13 @@
         text-align: right;
         padding: 10px 25px;
         color: rgba(#000, 0.8);
+
+        /* First child style in desktop view */
         &:first-child {
           color: $main-accent;
         }
 
+        /* Center alignment and underline on tablet screens */
         @include tabScreen {
           text-align: center;
           &:first-child {
@@ -138,13 +184,17 @@
     }
   }
 
+  /* Information box displaying user statistics and other details */
   .informationBox {
     @extend %box-shadow2;
     color: $body-text-clr;
 
+    /* Individual information sections within the box */
     .infoSection {
       padding: 30px;
       border-bottom: 1px solid rgba($dark-blue, 0.1);
+
+      /* Section title styling */
       h3 {
         color: $dark-blue;
         font-size: 16px;
@@ -153,10 +203,14 @@
         text-align: left;
         margin-bottom: 30px;
       }
+
+      /* List layout for user information details */
       ul {
         display: flex;
         gap: 40px 80px;
         flex-wrap: wrap;
+
+        /* Individual list item styling */
         li {
           display: flex;
           justify-content: space-between;
@@ -167,11 +221,14 @@
           font-size: 12px;
           line-height: 14.08px;
           text-transform: uppercase;
+
+          /* Desktop-specific adjustments */
           @include desktopScreen {
             width: max-content;
             flex-grow: initial;
           }
 
+          /* Styling for highlighted information */
           strong {
             font-size: 16px;
             font-weight: 500;

@@ -1,12 +1,17 @@
-"use client"
+"use client" // Enable Next.js client-side rendering for this component
+
+// Import necessary components and hooks from Next.js
 import Image from "next/image"
 import Link from "next/link"
 import { useContext } from "react"
 import { MenuContextProvider } from "../dashboard/layout"
 
+// Dashboard side menu component
 export default function DashboardSideMenu() {
+  // Access the context state for controlling mobile menu visibility
   const MenuContext = useContext(MenuContextProvider)
 
+  // Define customer menu items with corresponding icons and text
   const customers = [
     { icon: "/user-friends.svg", text: "Users" },
     { icon: "/users.svg", text: "Guarantors" },
@@ -17,6 +22,8 @@ export default function DashboardSideMenu() {
     { icon: "/user-check.svg", text: "Whitelist" },
     { icon: "/user-times.svg", text: "Karma" },
   ]
+
+  // Define business menu items with corresponding icons and text
   const businesses = [
     { icon: "/briefcase.svg", text: "Organization" },
     { icon: "/hand-with-money.svg", text: "Loan Products" },
@@ -28,6 +35,8 @@ export default function DashboardSideMenu() {
     { icon: "/scroll.svg", text: "Settlements" },
     { icon: "/chart-bar.svg", text: "Reports" },
   ]
+
+  // Define settings menu items with corresponding icons and text
   const settings = [
     { icon: "/sliders-h.svg", text: "Preferences" },
     { icon: "/badge-percent.svg", text: "Fees and Pricing" },
@@ -36,11 +45,13 @@ export default function DashboardSideMenu() {
   ]
 
   return (
+    // Main navigation wrapper, conditionally adds a class for mobile view
     <nav
       className={`sidemenu ${
         MenuContext?.mobileMenuOpen ? "openMobileSideMenu" : ""
       }`}
     >
+      {/* Switch Organization Link */}
       <div className="sideMenuLink">
         <span className="icon">
           <Image src="/briefcase.svg" alt="briefcase" fill />
@@ -50,16 +61,21 @@ export default function DashboardSideMenu() {
           <Image src="/np_next.svg" alt="arrow" fill />
         </span>
       </div>
+
+      {/* Dashboard Link */}
       <div className="sideMenuLink">
         <span className="icon">
           <Image src="/home.svg" alt="home" fill />
         </span>
         <p>Dashboard</p>
       </div>
+
+      {/* Customer Menu Section */}
       <div className="customers">
         <h3>CUSTOMERS</h3>
         {customers.map((item) =>
           item.text === "Users" ? (
+            // Special case: Link component used for "Users" menu item
             <div
               className="sideMenuLink"
               key={item.text}
@@ -70,9 +86,10 @@ export default function DashboardSideMenu() {
                   <Image src={item.icon} alt={`${item.text} icon`} fill />
                 </span>
                 <p>{item.text}</p>
-              </Link>{" "}
+              </Link>
             </div>
           ) : (
+            // Standard menu items without links
             <div
               className="sideMenuLink"
               key={item.text}
@@ -86,6 +103,8 @@ export default function DashboardSideMenu() {
           )
         )}
       </div>
+
+      {/* Business Menu Section */}
       <div className="businesses">
         <h3>BUSINESSES</h3>
         {businesses.map((item) => (
@@ -101,6 +120,8 @@ export default function DashboardSideMenu() {
           </div>
         ))}
       </div>
+
+      {/* Settings Menu Section */}
       <div className="settings">
         <h3>SETTINGS</h3>
         {settings.map((item) => (
@@ -116,6 +137,8 @@ export default function DashboardSideMenu() {
           </div>
         ))}
       </div>
+
+      {/* Logout Section */}
       <div className="logout">
         <div className="sideMenuLink">
           <span className="icon">
@@ -125,6 +148,7 @@ export default function DashboardSideMenu() {
             <p>Logout</p>
           </Link>
         </div>
+        {/* Version info */}
         <p>v.1.2.0</p>
       </div>
     </nav>
