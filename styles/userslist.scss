@@ -8,7 +8,7 @@
 .dashboardContentBody {
   //********** GENERAL STYLES *********************//
   h1 {
-    margin-bottom: 27px;
+    margin: 27px 0;
   }
   ul {
     //flex any ul element
@@ -103,14 +103,10 @@
   .usersList {
     @extend %box-shadow2;
     color: $body-text-clr;
-    padding: 30px;
+    padding: 30px 30px 0;
     overflow: scroll;
     white-space: nowrap;
     margin: 27px 0;
-
-    @include desktopScreen {
-      overflow: visible;
-    }
 
     // Icon styles for user list items
     *.icon,
@@ -122,6 +118,14 @@
     .contentWrapper {
       //this wraps the user list area, helping with mobile responsiveness restrictions
       min-width: 800px;
+      max-height: 1050px;
+      & span:first-child .filter-form {
+        left: -20px;
+      }
+      &:first-child .moreOptionsDialog {
+        bottom: 0;
+        left: 77%;
+      }
     }
 
     // These are the filter tabs on the user list

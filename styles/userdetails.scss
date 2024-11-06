@@ -10,6 +10,10 @@
 
   /* Header section for navigation and actions */
   header {
+    margin-top: 10vh;
+    @include desktopScreen {
+      margin-top: initial;
+    }
     .linkBack {
       width: max-content;
       font-size: 16px;
@@ -35,7 +39,7 @@
 
     /* Margin for the button group */
     .buttonGroup {
-      margin: 18px 0;
+      margin: 25px 0;
     }
 
     /* Button styling for actions */
@@ -85,7 +89,10 @@
 
     /* Top details of the user */
     .topDetails {
-      width: 70%;
+      width: 50%;
+      @include desktopScreen {
+        width: 70%;
+      }
       @include flex(start);
 
       /* Responsive styling for tablet screens */

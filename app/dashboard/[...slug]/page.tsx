@@ -19,12 +19,12 @@ export default async function UserDetail({
           {/* BACK LINK TO NAVIGATE BACK TO THE MAIN USER LIST ON DASHBOARD */}
           <Link href="/dashboard" className="linkBack">
             <Icon filename="arrow-back.svg" />
-            BACK TO USERS
+            Back to Users
           </Link>
 
           {/* HEADER TITLE AND ACTION BUTTONS (BLACKLIST/ACTIVATE) */}
           <div className="buttonGroup">
-            <h1>USER DETAILS</h1>
+            <h1>User Details</h1>
             <span className="buttons">
               {/* BUTTON TO BLACKLIST THE USER */}
               <button className="blacklist">BLACKLIST USER</button>

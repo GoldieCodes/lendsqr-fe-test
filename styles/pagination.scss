@@ -9,38 +9,51 @@ footer {
   }
 
   aside {
-    width: 40%;
+    width: 50%;
     @include desktopScreen {
       width: 30%;
     }
     p {
       @include flex(left);
       gap: 8px;
-    }
-    span {
-      font-weight: 500;
-      padding: 0.3em 0.7em;
-      border-radius: 4px;
-      @include flex(space-between);
-      background: rgba($body-text-clr, 0.1);
+
+      input {
+        font-weight: 500;
+        padding: 0.3em 0.7em;
+        border-radius: 4px;
+        color: rgba($dark-blue, 0.6);
+        @include flex(space-between);
+        background: rgba($dark-blue, 0.1);
+      }
+      span {
+        position: relative;
+        width: 25%;
+      }
       .icon {
-        margin-left: 14px;
+        position: absolute;
+        right: 10%;
+        top: 25%;
+        cursor: pointer;
       }
     }
   }
   nav {
     @include flex(space-between);
     width: 40%;
+    @include desktopScreen {
+      width: 20%;
+    }
     li {
       @include flex(space-between);
+      padding: 0.1em;
     }
-    .pages li:first-child {
+    .pages {
       font-weight: 500;
       color: $dark-blue;
       font-size: 16px;
     }
     .icon {
-      padding: 0.5em 0.4em;
+      padding: 0.3em 0.4em;
       border-radius: 4px;
       cursor: pointer;
       background: rgba($body-text-clr, 0.2);

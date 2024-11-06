@@ -113,6 +113,7 @@
     font-size: 16px;
     @include flex(right); // Aligns content to the right side
     gap: 20px;
+    flex-wrap: nowrap;
 
     /* Desktop-specific adjustments */
     @include desktopScreen {

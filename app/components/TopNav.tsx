@@ -6,7 +6,7 @@ import Icon from "./Icon"
 import { RiMenuFold2Line, RiMenuUnfold2Line } from "react-icons/ri"
 
 export default function TopNav() {
-  const [searchTerm, setSearchTerm] = useState<string>()
+  const [searchTerm, setSearchTerm] = useState("")
   const MenuContext = useContext(MenuContextProvider)
 
   return (

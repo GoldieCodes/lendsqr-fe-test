@@ -47,6 +47,21 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
     // Update the state with new filter values
     setFilters((prevFilters) => ({ ...prevFilters, [name]: value }))
   }
+  const handlePhoneNumberFormat = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    let { name, value } = e.target
+    value.replace(/\D/g, "")
+
+    // Limit the input length to 10 digits
+    if (value.length > 10) value = value.slice(0, 10)
+
+    // Format the input as '525-402-2460'
+    const formattedInput = value.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")
+
+    // Update the state with new filter values
+    setFilters((prevFilters) => ({ ...prevFilters, [name]: formattedInput }))
+  }
 
   // Trigger the onFilter function with the current filters
   const handleFilter = () => {
@@ -126,8 +141,9 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
         type="tel"
         name="phoneNumber"
         value={filters.phoneNumber}
-        onChange={handleChange}
-        placeholder="Phone Number"
+        onChange={handlePhoneNumberFormat}
+        placeholder="Phone number"
+        maxLength={12}
         className="form-input"
       />
 

@@ -37,7 +37,8 @@ export default function Dashboard() {
   const [openFilter, setOpenFilter] = useState(false) // Controls the visibility of the filter options
   const [filterIconId, setFilterIconId] = useState<string | undefined>() // Tracks which filter icon is clicked
   const [users, setUsers] = useState<UsersInterface | null>(null) // Holds the list of users
-
+  const [rowsPerPage, setRowsPerPage] = useState(50)
+  const [totalPages, setTotalPages] = useState<number | null>(null)
   //the augmentedUsersList used to perform other operations on the user list data, so as to preserve the
   //original "users" variable in case of the need for a reset.
   const [augmentedUsersList, setAugmentedUsersList] =
@@ -46,7 +47,6 @@ export default function Dashboard() {
   // these two state variables are for pagination controls
   const [currentPage, setCurrentPage] = useState(1)
   const [pagesArray, setPagesArray] = useState([currentPage])
-  const rowsPerPage = 50
   const [canGetNextPage, setCanGetNextPage] = useState(true)
   const [canGetPreviousPage, setCanGetPreviousPage] = useState(false)
 
@@ -62,6 +62,7 @@ export default function Dashboard() {
       const [completeData, paginatedData] = storedData
       setUsers(completeData)
       setAugmentedUsersList(paginatedData)
+      setTotalPages(completeData.length / rowsPerPage)
       // Set both states if data is found in storage
     } else {
       fetchData() // If no data is found, fetch from API
@@ -78,10 +79,16 @@ export default function Dashboard() {
       if (data) {
         const [completeData, paginatedData] = data
         setUsers(completeData)
-        setAugmentedUsersList(paginatedData) // Update both states with fetched data
+        setAugmentedUsersList(paginatedData)
+        setTotalPages(completeData.length / rowsPerPage) // Update both states with fetched data
       }
     }
-  }, [currentPage])
+  }, [currentPage, rowsPerPage])
+
+  //change value of total pages if rowsPerPage changes (based on user input)
+  useEffect(() => {
+    if (users) setTotalPages(users.length / rowsPerPage)
+  }, [rowsPerPage])
 
   // Filter users based on provided filter fields
   function filterFunction(filterFields: FilterValues) {
@@ -215,6 +222,7 @@ export default function Dashboard() {
         <Pagination
           data={users}
           offset={rowsPerPage}
+          totalPages={totalPages}
           currentPage={currentPage}
           pagesArray={pagesArray}
           setCurrentPage={setCurrentPage}
@@ -223,6 +231,8 @@ export default function Dashboard() {
           setCanGetNextPage={setCanGetNextPage}
           canGetPreviousPage={canGetPreviousPage}
           setCanGetPreviousPage={setCanGetPreviousPage}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
         />
       </main>
     </div>

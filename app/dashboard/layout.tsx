@@ -7,6 +7,8 @@ import { createContext, useState } from "react"
 type MenuContextType = {
   mobileMenuOpen: boolean
   setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
+  search: string
+  setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
 // CREATES A CONTEXT TO MANAGE STATE OF MOBILE MENU VISIBILITY ACROSS THE DASHBOARD COMPONENTS
@@ -20,24 +22,26 @@ export default function DashboardLayout({
 }) {
   // STATE TO CONTROL THE OPEN/CLOSED STATE OF THE MOBILE SIDEMENU
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
+  const [search, setSearch] = useState("")
 
   return (
     <>
       {/* PROVIDES SHARED DASHBOARD UI ELEMENTS LIKE THE TOP NAVIGATION AND SIDEBAR */}
       <MenuContextProvider.Provider
-        value={{ mobileMenuOpen, setMobileMenuOpen }}
+        value={{ mobileMenuOpen, setMobileMenuOpen, search, setSearch }}
       >
         {/* TOP NAVIGATION COMPONENT */}
         <TopNav />
 
         {/* MAIN DASHBOARD LAYOUT CONTAINER */}
-        <main className="dashboardBodyLayout">
-          {/* SIDEMENU COMPONENT THAT ADAPTS TO MOBILE MENU STATE */}
-          <DashboardSideMenu />
-
-          {/* RENDER CHILD COMPONENTS WITHIN THE DASHBOARD CONTEXT */}
-          {children}
-        </main>
+        <div>
+          <main className="dashboardBodyLayout">
+            {/* SIDEMENU COMPONENT THAT ADAPTS TO MOBILE MENU STATE */}
+            <DashboardSideMenu />
+            {/* RENDER CHILD COMPONENTS WITHIN THE DASHBOARD CONTEXT */}
+            {children}
+          </main>
+        </div>
       </MenuContextProvider.Provider>
     </>
   )

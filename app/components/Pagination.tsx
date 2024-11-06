@@ -1,5 +1,5 @@
 import Icon from "./Icon"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 type PaginationProps<T extends any[]> = {
   data: T
@@ -12,11 +12,13 @@ type PaginationProps<T extends any[]> = {
   setCanGetNextPage: React.Dispatch<React.SetStateAction<boolean>>
   canGetPreviousPage: boolean
   setCanGetPreviousPage: React.Dispatch<React.SetStateAction<boolean>>
+  rowsPerPage: number
+  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
+  totalPages: number | null
 }
 
 export default function Pagination<T extends any[]>({
   data,
-  offset,
   currentPage,
   setCurrentPage,
   pagesArray,
@@ -25,22 +27,27 @@ export default function Pagination<T extends any[]>({
   setCanGetNextPage,
   canGetPreviousPage,
   setCanGetPreviousPage,
+  rowsPerPage,
+  setRowsPerPage,
+  totalPages,
 }: PaginationProps<T>) {
-  const totalPages = data.length / offset
+  //for the display on the input, but this is not being evaluated yet
+  //the variable that sets the initial offset value is the rowsPerPage variable in the parent component
+  const [offsetInput, setOffsetInput] = useState(rowsPerPage.toString())
 
   //controls the class that visually discourages the required page button from being clicked
 
   useEffect(() => {
-    if (currentPage !== totalPages) {
+    if (totalPages && currentPage !== totalPages) {
       setCanGetNextPage(true)
     } else setCanGetNextPage(false)
     if (currentPage === 1) {
-      setCanGetPreviousPage(true)
-    } else setCanGetPreviousPage(false)
-  }, [currentPage, totalPages])
+      setCanGetPreviousPage(false)
+    } else setCanGetPreviousPage(true)
+  }, [currentPage, totalPages, rowsPerPage])
 
   function getNextPage() {
-    if (currentPage < totalPages) {
+    if (totalPages && currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1)
       setPagesArray((prev) => [...prev, currentPage + 1])
     }
@@ -48,7 +55,24 @@ export default function Pagination<T extends any[]>({
   function getPreviousPage() {
     if (currentPage > 1) {
       setCurrentPage((prev) => prev - 1)
-      setPagesArray((prev) => [...prev, currentPage - 1])
+      setPagesArray((prev) => prev.slice(0, -1))
+    }
+  }
+  //allow the user to enter the number of pages to show at a time
+  function changeOffset() {
+    const inputValueForNumberOfPagesShown = parseInt(offsetInput, 10)
+    if (
+      inputValueForNumberOfPagesShown < data.length &&
+      inputValueForNumberOfPagesShown > 0
+    )
+      setRowsPerPage(inputValueForNumberOfPagesShown)
+    setCurrentPage(1)
+    setPagesArray([1])
+  }
+
+  function changeOffsetOnKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      changeOffset()
     }
   }
 
@@ -57,11 +81,19 @@ export default function Pagination<T extends any[]>({
       <aside>
         {/* The display of how many records out of the total are being shown */}
         <p className="currentPageNumber">
-          Showing{" "}
+          Showing
           <span>
-            {offset * currentPage}
-            <Icon filename="np_next.svg" />
-          </span>{" "}
+            <input
+              type="text"
+              id="offsetValue"
+              placeholder={(rowsPerPage * currentPage).toString()}
+              value={offsetInput}
+              onChange={(e) => setOffsetInput(e.target.value)}
+              onKeyDown={(e) => changeOffsetOnKeyDown(e)}
+            />
+
+            <Icon filename="np_next.svg" onClick={changeOffset} />
+          </span>
           out of {data.length}
         </p>
       </aside>
@@ -84,9 +116,7 @@ export default function Pagination<T extends any[]>({
           ) : pagesArray.length <= 3 && pagesArray.length > 1 ? (
             pagesArray.map((page) => <li key={page}>{page}</li>)
           ) : (
-            pagesArray
-              .slice(currentPage, 4)
-              .map((page) => <li key={page}>{page}</li>)
+            pagesArray.slice(0, 3).map((page) => <li key={page}>{page}</li>)
           )}
 
           <li>...</li>
