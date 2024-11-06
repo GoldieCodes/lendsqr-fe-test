@@ -111,14 +111,11 @@ export default function Dashboard() {
     setOpenFilter(false) // Close filter options
   }
 
-  // Loading state when users data is not available
-  if (!users)
-    return (
-      <div className="loading">
-        <div className="loader"></div>
-        <p>Loading...</p>
-      </div>
-    )
+  if (!users) return // Loading state when users data is not available
+  ;<div className="loading">
+    <div className="loader"></div>
+    <p>Loading...</p>
+  </div>
 
   return (
     <div className="dashbContentWrapper">

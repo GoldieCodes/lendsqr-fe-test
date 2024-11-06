@@ -3,11 +3,13 @@ import Link from "next/link"
 import UserDetailsData from "@/app/components/UserDetailsData"
 
 // MAIN COMPONENT TO DISPLAY DETAILED INFORMATION OF A SPECIFIC USER
-export default function UserDetail({
+export default async function UserDetail({
   params,
 }: {
   params: Promise<{ slug: string }>
 }) {
+  const { slug } = await params
+
   return (
     <div className="dashbContentWrapper">
       {/* PRIMARY CONTENT AREA FOR USER DETAILS WITHIN DASHBOARD LAYOUT */}
@@ -34,7 +36,7 @@ export default function UserDetail({
         </header>
 
         {/* COMPONENT RENDERING USER DETAILS DATA */}
-        <UserDetailsData />
+        <UserDetailsData userId={slug[0]} />
       </main>
     </div>
   )
