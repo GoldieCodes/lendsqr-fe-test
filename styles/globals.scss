@@ -140,8 +140,8 @@ select {
 
 /* Target the scrollbar track */
 ::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
-  height: 12px; /* Height of the scrollbar (for horizontal scrollbars) */
+  width: 5px; /* Width of the scrollbar */
+  height: 5px; /* Height of the scrollbar (for horizontal scrollbars) */
 }
 
 /* Target the track (background of the scrollbar) */
@@ -152,9 +152,9 @@ select {
 
 /* Target the scrollbar thumb (draggable part) */
 ::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color of the scrollbar thumb */
+  background-color: rgba($dark-blue, 0.5); /* Color of the scrollbar thumb */
   border-radius: 10px; /* Rounding corners for thumb */
-  border: 3px solid #f0f0f0; /* Adds padding around the thumb */
+  border: 2px solid #f0f0f0; /* Adds padding around the thumb */
 }
 
 /* Change thumb color on hover */

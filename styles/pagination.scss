@@ -24,6 +24,7 @@ footer {
         color: rgba($dark-blue, 0.6);
         @include flex(space-between);
         background: rgba($dark-blue, 0.1);
+        border: none;
       }
       span {
         position: relative;
@@ -65,7 +66,7 @@ footer {
       }
       &.disabled {
         cursor: not-allowed;
-        background: rgba(36, 36, 36, 0.5);
+        background: rgba(81, 88, 87, 0.384);
       }
       &.hover:hover {
         background: rgba($main-accent, 0.7);

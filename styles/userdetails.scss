@@ -74,32 +74,20 @@
   .userOverview {
     @extend %box-shadow2;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     margin: 38px 0;
+    overflow-x: scroll;
 
-    /* Stack layout for tablet screens */
-    @include tabScreen {
-      flex-wrap: nowrap;
-      flex-direction: column;
-    }
     @include desktopScreen {
       height: 210px;
+      overflow: hidden;
     }
 
     /* Top details of the user */
     .topDetails {
-      width: 50%;
-      @include desktopScreen {
-        width: 70%;
-      }
       @include flex(start);
-
-      /* Responsive styling for tablet screens */
-      @include tabScreen {
-        flex-wrap: nowrap;
-        width: initial;
-      }
+      flex-wrap: nowrap;
 
       /* Inner layout for detailed sections */
       div {
@@ -108,11 +96,6 @@
         /* Adds a divider line on tablet screens */
         @include tabScreen {
           border-left: 1px solid rgba($body-text-clr, 0.2);
-        }
-
-        /* Removes border from the first div */
-        &:first-child {
-          border: none;
         }
 
         /* Avatar and username section */
@@ -156,13 +139,8 @@
 
     /* Header section for detailed overview */
     .detailHeaders {
-      display: grid;
-
-      /* Alignment for tablet screens */
-      @include tabScreen {
-        @include flex(space-between);
-        flex-wrap: nowrap;
-      }
+      @include flex(space-between);
+      flex-wrap: nowrap;
 
       /* Paragraph styles for detail headers */
       p {

@@ -117,7 +117,7 @@
 
     .contentWrapper {
       //this wraps the user list area, helping with mobile responsiveness restrictions
-      min-width: 800px;
+      min-width: 900px;
       max-height: 1050px;
       & span:first-child .filter-form {
         left: -20px;
@@ -144,6 +144,7 @@
         //the span holds the filter icon
         width: calc(100% / 8);
         justify-content: start;
+        flex-wrap: nowrap;
       }
       h4 {
         font-size: 12px;
