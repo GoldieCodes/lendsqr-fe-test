@@ -1,7 +1,10 @@
 "use client" // Indicating that this component can use React hooks
 import Image from "next/image"
 import { useEffect, useState } from "react"
-import { UsersListType } from "../components/userDetailsInterface"
+import {
+  UsersInterface,
+  UserListType,
+} from "../components/userDetailsInterface"
 import Icon from "../components/Icon"
 import Link from "next/link"
 import FilterUserList from "../components/FilterUserList"
@@ -33,37 +36,57 @@ export default function Dashboard() {
   const [userId, setUserId] = useState<string | undefined>() // Holds the ID of the user for whom the details dialog is opened
   const [openFilter, setOpenFilter] = useState(false) // Controls the visibility of the filter options
   const [filterIconId, setFilterIconId] = useState<string | undefined>() // Tracks which filter icon is clicked
-  const [users, setUsers] = useState<UsersListType | null>(null) // Holds the list of users
-  const [filteredValues, setFilteredValues] = useState<UsersListType | null>(
-    users
-  )
+  const [users, setUsers] = useState<UsersInterface | null>(null) // Holds the list of users
+
+  //the augmentedUsersList used to perform other operations on the user list data, so as to preserve the
+  //original "users" variable in case of the need for a reset.
+  const [augmentedUsersList, setAugmentedUsersList] =
+    useState<UsersInterface | null>(users)
+
+  // these two state variables are for pagination controls
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pagesArray, setPagesArray] = useState([currentPage])
+  const rowsPerPage = 50
+  const [canGetNextPage, setCanGetNextPage] = useState(true)
+  const [canGetPreviousPage, setCanGetPreviousPage] = useState(false)
 
   // Fetch data on component mount
   useEffect(() => {
-    const storedData = checkStorageData("usersList", "usersListTimeStamp") // Check local storage for user data
+    const storedData = checkStorageData<UserListType>(
+      "usersList",
+      "usersListTimeStamp",
+      currentPage,
+      rowsPerPage
+    ) // Check local storage for user data
     if (storedData) {
-      setUsers(storedData)
-      setFilteredValues(storedData)
+      const [completeData, paginatedData] = storedData
+      setUsers(completeData)
+      setAugmentedUsersList(paginatedData)
       // Set both states if data is found in storage
     } else {
       fetchData() // If no data is found, fetch from API
     }
 
     async function fetchData() {
-      const data = await fetchApiData(
+      const data = await fetchApiData<UserListType>(
         "https://run.mocky.io/v3/34ecde44-8db0-4c51-ac89-8cfb9ab57d07",
         "usersList",
-        "usersListTimeStamp"
+        "usersListTimeStamp",
+        currentPage,
+        rowsPerPage
       )
-      setUsers(data)
-      setFilteredValues(data) // Update both states with fetched data
+      if (data) {
+        const [completeData, paginatedData] = data
+        setUsers(completeData)
+        setAugmentedUsersList(paginatedData) // Update both states with fetched data
+      }
     }
-  }, [])
+  }, [currentPage])
 
   // Filter users based on provided filter fields
   function filterFunction(filterFields: FilterValues) {
-    const filteredValues: UsersListType | null =
-      users?.filter(
+    const filterList: UsersInterface | null =
+      augmentedUsersList?.filter(
         (field) =>
           // Match fields with the filter values
           field.date_joined?.match(filterFields.date) &&
@@ -74,17 +97,17 @@ export default function Dashboard() {
           field.username?.match(filterFields.username)
       ) || null
 
-    setFilteredValues(filteredValues)
+    setAugmentedUsersList(filterList)
     setOpenFilter(false) // Close filter options after applying
 
     // State when no matching users found after filtering
-    if (!filteredValues)
+    if (!augmentedUsersList)
       return <div className="noFilterValue">No Match Found</div>
   }
 
   // Reset filters to show all users
   function resetFilter() {
-    setFilteredValues(users)
+    setAugmentedUsersList(users)
     setOpenFilter(false) // Close filter options
   }
 
@@ -149,7 +172,7 @@ export default function Dashboard() {
               ))}
             </div>
             {/* Displaying each user in the users list */}
-            {filteredValues?.map((item) => (
+            {augmentedUsersList?.map((item) => (
               <div className="singleUser" key={item.id}>
                 <ul>
                   <li>{item.organization}</li>
@@ -192,6 +215,18 @@ export default function Dashboard() {
             ))}
           </div>
         </section>
+        <Pagination
+          data={users}
+          offset={rowsPerPage}
+          currentPage={currentPage}
+          pagesArray={pagesArray}
+          setCurrentPage={setCurrentPage}
+          setPagesArray={setPagesArray}
+          canGetNextPage={canGetNextPage}
+          setCanGetNextPage={setCanGetNextPage}
+          canGetPreviousPage={canGetPreviousPage}
+          setCanGetPreviousPage={setCanGetPreviousPage}
+        />
       </main>
     </div>
   )

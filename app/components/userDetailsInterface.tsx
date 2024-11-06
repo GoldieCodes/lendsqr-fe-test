@@ -43,21 +43,19 @@ interface Guarantor {
   label: string // Label for the guarantor information
   value: string // Value corresponding to the label
 }
-
 // USER DETAILS TYPE ENDS
 
 // THIS DEFINES THE EXPECTED TYPE FOR THE USER LIST FETCH
-export type UsersListType = UsersInterface[] // Array of user interfaces
+export type UsersInterface = UserListType[]
 
-// Interface defining the structure of a user in the user list
-export interface UsersInterface {
-  id: string // Unique identifier for the user
-  organization: Organization // Organization the user belongs to
-  username: string // Username of the user
-  email: string // Email address of the user
-  phone_number: string // Phone number of the user
-  date_joined: string // Date the user joined
-  status: Status // Current status of the user
+export interface UserListType {
+  id: string
+  organization: Organization
+  username: string
+  email: string
+  phone_number: string
+  date_joined: string
+  status: Status
 }
 
 // Enum defining possible organizations

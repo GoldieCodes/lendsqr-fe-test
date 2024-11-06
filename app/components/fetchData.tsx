@@ -8,7 +8,12 @@
  * @param storedTimeKey - The key for the stored timestamp in localStorage.
  * @returns Parsed data from localStorage or null if data is stale or not found.
  */
-export function checkStorageData(storedDataKey: string, storedTimeKey: string) {
+export function checkStorageData<T>(
+  storedDataKey: string,
+  storedTimeKey: string,
+  currentPage: number,
+  rowsPerPage: number
+): [T[], T[]] | null {
   // Data is considered stale after 24 hours (converted to milliseconds)
   const dataExpiryInterval = 24 * 60 * 60 * 1000
 
@@ -17,12 +22,20 @@ export function checkStorageData(storedDataKey: string, storedTimeKey: string) {
   const storedTime = localStorage.getItem(storedTimeKey)
 
   if (storedData && storedTime) {
-    const parsedData: [] = JSON.parse(storedData)
+    const parsedData: T[] = JSON.parse(storedData)
     const parsedTime = parseInt(storedTime, 10)
     const timeRightNow = Date.now()
 
     // Check if the interval has been exceeded; if not, return the data
-    if (timeRightNow - parsedTime < dataExpiryInterval) return parsedData
+    if (timeRightNow - parsedTime < dataExpiryInterval) {
+      // paginate the data
+
+      const singleDataPage = parsedData.slice(
+        (currentPage - 1) * rowsPerPage,
+        currentPage * rowsPerPage
+      )
+      return [parsedData, singleDataPage] // Return the complete fetched data and a paginated part of the fetched data to a state variable for display
+    }
   }
 
   return null // Return null if no valid data is found
@@ -36,52 +49,29 @@ export function checkStorageData(storedDataKey: string, storedTimeKey: string) {
  * @param timeStorageKey - The key for storing the timestamp in localStorage.
  * @returns Fetched data or null if the fetch failed.
  */
-export async function fetchApiData(
+export async function fetchApiData<T>(
   api: string,
   dataStorageKey: string,
-  timeStorageKey: string
-): Promise<[] | null> {
+  timeStorageKey: string,
+  currentPage: number,
+  rowsPerPage: number
+): Promise<[T[], T[]] | null> {
   const response = await fetch(api)
 
   if (response.ok) {
-    const data = await response.json()
+    const data: T[] = await response.json()
     const timeStamp = Date.now()
+    // paginate the data
+    const singleDataPage: T[] = data.slice(
+      (currentPage - 1) * rowsPerPage,
+      currentPage * rowsPerPage
+    )
 
     // Store the fetched data and timestamp in localStorage
     localStorage.setItem(dataStorageKey, JSON.stringify(data))
     localStorage.setItem(timeStorageKey, timeStamp.toString())
 
-    return data // Return the fetched data
+    return [data, singleDataPage] // Return the complete fetched data and a paginated part of the fetched data to a state variable for display
   }
-
-  return null // Return null if the fetch fails
-}
-
-/**
- * Paginates the given data based on the current page and rows per page.
- *
- * @param data - The data to paginate.
- * @param dataRowsPerPage - The number of rows to display per page.
- * @param currentPage - The current page number.
- * @returns A slice of the data for the current page or null if data is invalid.
- */
-export function PaginateData(
-  data: [] | null,
-  dataRowsPerPage: number,
-  currentPage: number
-) {
-  if (data) {
-    const dataSize = data.length
-    const totalPages = Math.ceil(dataSize / dataRowsPerPage)
-
-    // Calculate the starting and ending indices for slicing the data
-    const singleDataPage = data.slice(
-      (currentPage - 1) * dataRowsPerPage,
-      currentPage * dataRowsPerPage
-    )
-
-    return singleDataPage // Return the paginated data for the current page
-  }
-
-  return null // Return null if no data is provided
+  return null
 }

@@ -1,0 +1,62 @@
+@use "mixins.scss" as *;
+@use "variables.scss" as *;
+
+footer {
+  margin: 1em 0 1vh;
+  @include flex(space-between);
+  .icon img {
+    @include widthHeight(18px, 18px);
+  }
+
+  aside {
+    width: 40%;
+    @include desktopScreen {
+      width: 30%;
+    }
+    p {
+      @include flex(left);
+      gap: 8px;
+    }
+    span {
+      font-weight: 500;
+      padding: 0.3em 0.7em;
+      border-radius: 4px;
+      @include flex(space-between);
+      background: rgba($body-text-clr, 0.1);
+      .icon {
+        margin-left: 14px;
+      }
+    }
+  }
+  nav {
+    @include flex(space-between);
+    width: 40%;
+    li {
+      @include flex(space-between);
+    }
+    .pages li:first-child {
+      font-weight: 500;
+      color: $dark-blue;
+      font-size: 16px;
+    }
+    .icon {
+      padding: 0.5em 0.4em;
+      border-radius: 4px;
+      cursor: pointer;
+      background: rgba($body-text-clr, 0.2);
+      &.previousPage {
+        transform: rotate(90deg);
+      }
+      &.nextPage {
+        transform: rotate(270deg);
+      }
+      &.disabled {
+        cursor: not-allowed;
+        background: rgba(36, 36, 36, 0.5);
+      }
+      &.hover:hover {
+        background: rgba($main-accent, 0.7);
+      }
+    }
+  }
+}
