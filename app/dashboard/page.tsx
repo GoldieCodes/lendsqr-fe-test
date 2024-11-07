@@ -228,7 +228,7 @@ export default function Dashboard() {
             )}
           </div>
         </section>
-        {augmentedUsersList.length > 0 && (
+        {augmentedUsersList && augmentedUsersList.length > 0 && (
           <Pagination
             data={users}
             offset={rowsPerPage}
