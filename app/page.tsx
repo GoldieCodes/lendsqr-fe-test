@@ -4,7 +4,7 @@ import Image from "next/image"
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { useState } from "react"
-import { auth } from "@/firebase"
+import { auth } from "firebase"
 import {
   Auth,
   UserCredential,
