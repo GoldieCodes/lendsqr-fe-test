@@ -1,4 +1,4 @@
-import Icon from "./Icon"
+import Icon from "app/components/Icon"
 import { useEffect, useState } from "react"
 
 type PaginationProps<T extends any[]> = {

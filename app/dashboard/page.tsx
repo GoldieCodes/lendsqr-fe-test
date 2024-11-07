@@ -5,11 +5,11 @@ import {
   UsersInterface,
   UserListType,
 } from "../components/userDetailsInterface"
-import Icon from "../components/Icon"
+import Icon from "app/components/Icon"
 import Link from "next/link"
 import FilterForm, { FilterValues } from "../components/FilterForm"
 import { fetchApiData, checkStorageData } from "../components/fetchData"
-import Pagination from "../components/Pagination"
+import Pagination from "app/components/Pagination"
 import { useMenuContextProvider } from "./layout"
 
 // Overview data for the dashboard

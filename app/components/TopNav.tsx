@@ -2,7 +2,7 @@
 import Image from "next/image"
 import { useEffect } from "react"
 import { useMenuContextProvider } from "../dashboard/layout"
-import Icon from "./Icon"
+import Icon from "app/components/Icon"
 import { RiMenuFold2Line, RiMenuUnfold2Line } from "react-icons/ri"
 import { usePathname } from "next/navigation"
 

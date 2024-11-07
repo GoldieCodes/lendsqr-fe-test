@@ -1,5 +1,5 @@
 "use client"
-import login from "@/styles/modules/login.module.scss"
+import login from "styles/modules/login.module.scss"
 import Image from "next/image"
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from "formik"
@@ -12,7 +12,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth"
 import { FirebaseError } from "firebase/app"
-import Modal from "./components/Modal"
+import Modal from "app/components/Modal"
 import { useRouter } from "next/navigation"
 
 // MAIN FUNCTION COMPONENT DEFINING ALL LOGIC FOR THE LOGIN PAGE
