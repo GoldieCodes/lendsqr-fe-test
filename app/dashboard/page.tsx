@@ -112,8 +112,6 @@ export default function Dashboard() {
     setOpenFilter(false) // Close filter options after applying
 
     // State when no matching users found after filtering
-    if (!augmentedUsersList)
-      return <div className="noFilterValue">No Match Found</div>
   }
 
   // Reset filters to show all users
@@ -183,64 +181,70 @@ export default function Dashboard() {
               ))}
             </div>
             {/* Displaying each user in the users list */}
-            {augmentedUsersList?.map((item) => (
-              <div className="singleUser" key={item.id}>
-                <ul>
-                  <li>{item.organization}</li>
-                  <li>{item.username}</li>
-                  <li className="email">{item.email}</li>
-                  <li>{item.phone_number}</li>
-                  <li>{item.date_joined}</li>
-                  <li className={`statusPill ${item.status.toLowerCase()}`}>
-                    {item.status}
-                  </li>
-                  {/* View more options icon */}
-                  <span
-                    className="viewMoreOptions"
-                    onClick={() => {
-                      setOpenDetailsDialog(!openDetailsDialog)
-                      setUserId(item.id)
-                    }}
-                  >
-                    <Icon filename="vertical-dots.svg" />
-                  </span>
-                </ul>
-                {/* More options dialog for the user */}
-                {openDetailsDialog && userId === item.id ? (
-                  <span className="moreOptionsDialog">
-                    <Link href={`/dashboard/${userId}`}>
-                      <Icon filename="np-view.svg" />
-                      <p>View Details</p>
-                    </Link>
-                    <Link href={`/#`}>
-                      <Icon filename="np-user.svg" />
-                      <p>Blacklist User</p>
-                    </Link>
-                    <Link href={`/#`}>
-                      <Icon filename="np-delete-friend.svg" />
-                      <p>Activate User</p>
-                    </Link>
-                  </span>
-                ) : null}
-              </div>
-            ))}
+            {augmentedUsersList && augmentedUsersList.length > 0 ? (
+              augmentedUsersList.map((item) => (
+                <div className="singleUser" key={item.id}>
+                  <ul>
+                    <li>{item.organization}</li>
+                    <li>{item.username}</li>
+                    <li className="email">{item.email}</li>
+                    <li>{item.phone_number}</li>
+                    <li>{item.date_joined}</li>
+                    <li className={`statusPill ${item.status.toLowerCase()}`}>
+                      {item.status}
+                    </li>
+                    {/* View more options icon */}
+                    <span
+                      className="viewMoreOptions"
+                      onClick={() => {
+                        setOpenDetailsDialog(!openDetailsDialog)
+                        setUserId(item.id)
+                      }}
+                    >
+                      <Icon filename="vertical-dots.svg" />
+                    </span>
+                  </ul>
+                  {/* More options dialog for the user */}
+                  {openDetailsDialog && userId === item.id ? (
+                    <span className="moreOptionsDialog">
+                      <Link href={`/dashboard/${userId}`}>
+                        <Icon filename="np-view.svg" />
+                        <p>View Details</p>
+                      </Link>
+                      <Link href={`/#`}>
+                        <Icon filename="np-user.svg" />
+                        <p>Blacklist User</p>
+                      </Link>
+                      <Link href={`/#`}>
+                        <Icon filename="np-delete-friend.svg" />
+                        <p>Activate User</p>
+                      </Link>
+                    </span>
+                  ) : null}
+                </div>
+              ))
+            ) : (
+              <div className="noFilterValue">No Match Found</div>
+            )}
           </div>
         </section>
-        <Pagination
-          data={users}
-          offset={rowsPerPage}
-          totalPages={totalPages}
-          currentPage={currentPage}
-          pagesArray={pagesArray}
-          setCurrentPage={setCurrentPage}
-          setPagesArray={setPagesArray}
-          canGetNextPage={canGetNextPage}
-          setCanGetNextPage={setCanGetNextPage}
-          canGetPreviousPage={canGetPreviousPage}
-          setCanGetPreviousPage={setCanGetPreviousPage}
-          rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
-        />
+        {augmentedUsersList.length > 0 && (
+          <Pagination
+            data={users}
+            offset={rowsPerPage}
+            totalPages={totalPages}
+            currentPage={currentPage}
+            pagesArray={pagesArray}
+            setCurrentPage={setCurrentPage}
+            setPagesArray={setPagesArray}
+            canGetNextPage={canGetNextPage}
+            setCanGetNextPage={setCanGetNextPage}
+            canGetPreviousPage={canGetPreviousPage}
+            setCanGetPreviousPage={setCanGetPreviousPage}
+            rowsPerPage={rowsPerPage}
+            setRowsPerPage={setRowsPerPage}
+          />
+        )}
       </main>
     </div>
   )

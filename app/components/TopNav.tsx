@@ -10,7 +10,6 @@ export default function TopNav() {
   // pulling in all the variables needed from the context provider on the layout.tsx page
   const {
     users,
-    augmentedUsersList,
     setAugmentedUsersList,
     mobileMenuOpen,
     setMobileMenuOpen,

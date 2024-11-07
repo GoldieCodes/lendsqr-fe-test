@@ -126,101 +126,111 @@
         bottom: 0;
         left: 77%;
       }
-    }
 
-    // These are the filter tabs on the user list
-    .headers {
-      padding-bottom: 20px;
+      // These are the filter tabs on the user list
+      .headers {
+        padding-bottom: 20px;
 
-      &,
-      & > span {
-        //direct span to flex the tabs (h4 and filter icon)
-        @include flex(space-between);
-        text-align: left;
-        gap: 5px;
-      }
+        &,
+        & > span {
+          //direct span to flex the tabs (h4 and filter icon)
+          @include flex(space-between);
+          text-align: left;
+          gap: 5px;
+        }
 
-      & span {
-        //the span holds the filter icon
-        width: calc(100% / 8);
-        justify-content: start;
-        flex-wrap: nowrap;
-      }
-      h4 {
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 14.08px;
-        text-align: left;
-        text-transform: uppercase;
-      }
-    }
-
-    // Styling the user list per list item
-    .singleUser {
-      padding: 20px 0;
-      border-bottom: 1px solid rgba($dark-blue, 0.1);
-      position: relative;
-
-      li {
-        width: calc(100% / 7);
-
-        &.email {
-          width: (100%/7) * 1.5;
+        & span {
+          //the span holds the filter icon
+          width: calc(100% / 8);
+          justify-content: start;
+          flex-wrap: nowrap;
+        }
+        h4 {
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 14.08px;
+          text-align: left;
+          text-transform: uppercase;
         }
       }
-
-      // The three vertical dots icon that can be clicked to view user details
-      .viewMoreOptions {
-        cursor: pointer;
-      }
-
-      // Popup dialog that opens when the vertical dots icon is clicked
-      .moreOptionsDialog {
-        width: 180px;
-        padding: 1.1em 1.5em;
-        position: absolute;
-        bottom: 100%;
-        left: 85%;
-        border-radius: 4px;
-        background: white;
-        @extend %box-shadow2;
-        border: 1px solid #545f7d0a;
-        z-index: 100;
-
-        // Links inside the options dialog
-        a {
-          @include flex(left);
-          gap: 0.7em;
-          padding: 0.5em 0;
-          font-weight: 500;
-        }
-      }
-      // Status buttons in the user list
-      .statusPill {
-        padding: 0.5rem 1.2rem;
-        line-height: 16.42px;
+      .noFilterValue {
         text-align: center;
-        border-radius: 100px;
-        max-width: 100px;
+        padding: 5em;
+        font-weight: 500;
+        color: $pill-red;
+      }
 
-        // Inactive status style
-        &.inactive {
-          @include bgAndTextClr($body-text-clr);
+      // Styling the user list per list item
+      .singleUser {
+        padding: 20px 0;
+        border-bottom: 1px solid rgba($dark-blue, 0.1);
+        position: relative;
+
+        li {
+          width: calc(100% / 6.6);
+          text-wrap: auto;
+
+          &.email {
+            overflow-wrap: anywhere;
+          }
+          &:nth-child(4) {
+            text-align: center;
+          }
         }
 
-        // Pending status style
-        &.pending {
-          @include bgAndTextClr($gold);
+        // The three vertical dots icon that can be clicked to view user details
+        .viewMoreOptions {
+          cursor: pointer;
         }
 
-        // Active status style
-        &.active {
-          @include bgAndTextClr($green);
-        }
+        // Popup dialog that opens when the vertical dots icon is clicked
+        .moreOptionsDialog {
+          width: 180px;
+          padding: 1.1em 1.5em;
+          position: absolute;
+          bottom: 100%;
+          left: 85%;
+          border-radius: 4px;
+          background: white;
+          @extend %box-shadow2;
+          border: 1px solid #545f7d0a;
+          z-index: 100;
 
-        // Blacklisted status style
-        &.blacklisted {
-          @include bgAndTextClr($pill-red);
+          // Links inside the options dialog
+          a {
+            @include flex(left);
+            gap: 0.7em;
+            padding: 0.5em 0;
+            font-weight: 500;
+          }
+        }
+        // Status buttons in the user list
+        .statusPill {
+          padding: 0.5rem 1.2rem;
+          line-height: 16.42px;
+          text-align: center;
+          border-radius: 100px;
+          max-width: 100px;
+
+          // Inactive status style
+          &.inactive {
+            @include bgAndTextClr($body-text-clr);
+          }
+
+          // Pending status style
+          &.pending {
+            @include bgAndTextClr($gold);
+          }
+
+          // Active status style
+          &.active {
+            @include bgAndTextClr($green);
+          }
+
+          // Blacklisted status style
+          &.blacklisted {
+            @include bgAndTextClr($pill-red);
+          }
         }
       }
     }

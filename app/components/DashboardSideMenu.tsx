@@ -5,6 +5,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { useContext } from "react"
 import { MenuContextProvider } from "../dashboard/layout"
+import { signOut } from "firebase/auth"
+import { auth } from "@/firebase"
 
 // Dashboard side menu component
 export default function DashboardSideMenu() {
@@ -144,7 +146,7 @@ export default function DashboardSideMenu() {
           <span className="icon">
             <Image src="/sign-out.svg" alt="sign out" fill />
           </span>
-          <Link href="/">
+          <Link href="/" onClick={() => signOut(auth)}>
             <p>Logout</p>
           </Link>
         </div>

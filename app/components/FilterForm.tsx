@@ -121,7 +121,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
         name="email"
         value={filters.email}
         onChange={handleChange}
-        placeholder="Email"
+        placeholder="e.g: janedoe@lendsqr.com"
         className="form-input"
       />
 
@@ -142,7 +142,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
         name="phoneNumber"
         value={filters.phoneNumber}
         onChange={handlePhoneNumberFormat}
-        placeholder="Phone number"
+        placeholder="XXX-XXX-XXXX"
         maxLength={12}
         className="form-input"
       />
