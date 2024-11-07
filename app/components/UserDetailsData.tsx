@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { CompleteUserInfo } from "./userDetailsInterface"
-import Icon from "@/app/components/Icon"
+import Icon from "@/components/Icon"
 import { fetchApiData, checkStorageData } from "./fetchData"
 
 // THIS DEFINES THE DATA USED FOR THE USER OVERVIEW SECTION, TO MAKE A CLEAN REUSABLE STRUCTURE
