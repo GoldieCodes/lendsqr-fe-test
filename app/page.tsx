@@ -1,5 +1,5 @@
 "use client"
-import login from "styles/modules/login.module.scss"
+import login from "@/styles/modules/login.module.scss"
 import Image from "next/image"
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from "formik"
