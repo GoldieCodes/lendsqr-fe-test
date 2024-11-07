@@ -7,10 +7,10 @@ import {
 } from "../components/userDetailsInterface"
 import Icon from "../components/Icon"
 import Link from "next/link"
-import FilterUserList from "../components/FilterUserList"
-import { FilterValues } from "../components/FilterUserList"
+import FilterForm, { FilterValues } from "../components/FilterForm"
 import { fetchApiData, checkStorageData } from "../components/fetchData"
 import Pagination from "../components/Pagination"
+import { useMenuContextProvider } from "./layout"
 
 // Overview data for the dashboard
 const dashbOverview = [
@@ -36,19 +36,23 @@ export default function Dashboard() {
   const [userId, setUserId] = useState<string | undefined>() // Holds the ID of the user for whom the details dialog is opened
   const [openFilter, setOpenFilter] = useState(false) // Controls the visibility of the filter options
   const [filterIconId, setFilterIconId] = useState<string | undefined>() // Tracks which filter icon is clicked
-  const [users, setUsers] = useState<UsersInterface | null>(null) // Holds the list of users
-  const [rowsPerPage, setRowsPerPage] = useState(50)
+  // records the total number of pages, with respect to the current offset value
   const [totalPages, setTotalPages] = useState<number | null>(null)
-  //the augmentedUsersList used to perform other operations on the user list data, so as to preserve the
-  //original "users" variable in case of the need for a reset.
-  const [augmentedUsersList, setAugmentedUsersList] =
-    useState<UsersInterface | null>(users)
 
   // these two state variables are for pagination controls
   const [currentPage, setCurrentPage] = useState(1)
   const [pagesArray, setPagesArray] = useState([currentPage])
   const [canGetNextPage, setCanGetNextPage] = useState(true)
   const [canGetPreviousPage, setCanGetPreviousPage] = useState(false)
+
+  const {
+    users,
+    setUsers,
+    augmentedUsersList,
+    setAugmentedUsersList,
+    rowsPerPage,
+    setRowsPerPage,
+  } = useMenuContextProvider()
 
   // Fetch data on component mount
   useEffect(() => {
@@ -94,14 +98,14 @@ export default function Dashboard() {
   function filterFunction(filterFields: FilterValues) {
     const filterList: UsersInterface | null =
       augmentedUsersList?.filter(
-        (field) =>
+        (list) =>
           // Match fields with the filter values
-          field.date_joined?.match(filterFields.date) &&
-          field.email?.match(filterFields.email) &&
-          field.organization?.match(filterFields.organization) &&
-          field.phone_number?.match(filterFields.phoneNumber) &&
-          field.status?.match(filterFields.status) &&
-          field.username?.match(filterFields.username)
+          list.date_joined?.match(filterFields.date) &&
+          list.email?.match(filterFields.email) &&
+          list.organization?.match(filterFields.organization) &&
+          list.phone_number?.match(filterFields.phoneNumber) &&
+          list.status?.match(filterFields.status) &&
+          list.username?.match(filterFields.username)
       ) || null
 
     setAugmentedUsersList(filterList)
@@ -118,11 +122,14 @@ export default function Dashboard() {
     setOpenFilter(false) // Close filter options
   }
 
-  if (!users) return // Loading state when users data is not available
-  ;<div className="loading">
-    <div className="loader"></div>
-    <p>Loading...</p>
-  </div>
+  // Loading state when users data is not available
+  if (!users)
+    return (
+      <div className="loading">
+        <div className="loader"></div>
+        <p>Loading...</p>
+      </div>
+    )
 
   return (
     <div className="dashbContentWrapper">
@@ -167,7 +174,7 @@ export default function Dashboard() {
                     <Icon filename="filter-results-button.svg" />
                   </span>
                   {openFilter && item === filterIconId ? (
-                    <FilterUserList
+                    <FilterForm
                       onFilter={filterFunction}
                       onReset={resetFilter}
                     />

@@ -68,6 +68,7 @@ export default function Pagination<T extends any[]>({
       setRowsPerPage(inputValueForNumberOfPagesShown)
     setCurrentPage(1)
     setPagesArray([1])
+    setOffsetInput("") //will clear the display after the user has entered a value, so that the placeholder value can show
   }
 
   function changeOffsetOnKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -76,6 +77,12 @@ export default function Pagination<T extends any[]>({
     }
   }
 
+  //will run just once and clear the input field
+  useEffect(() => {
+    setOffsetInput("") //clears the input value displayed so that the placeholder will be visible
+  }, [])
+
+  /******************************* THE JSX BEGINS ****************************************************/
   return (
     <footer>
       <aside>
@@ -86,7 +93,7 @@ export default function Pagination<T extends any[]>({
             <input
               type="text"
               id="offsetValue"
-              placeholder={(rowsPerPage * currentPage).toString()}
+              placeholder={(rowsPerPage * currentPage).toString()} //displays how many records have been shown in total
               value={offsetInput}
               onChange={(e) => setOffsetInput(e.target.value)}
               onKeyDown={(e) => changeOffsetOnKeyDown(e)}

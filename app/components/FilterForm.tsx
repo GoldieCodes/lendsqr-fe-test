@@ -2,7 +2,7 @@
 import React, { useState } from "react"
 import { Status, Organization } from "./userDetailsInterface"
 
-// Define the structure of the props passed to the FilterUserList component
+// Define the structure of the props passed to the FilterForm component
 interface FilterFormProps {
   // Function to handle filter action with filter values as a parameter
   onFilter: (filters: {
@@ -28,7 +28,7 @@ export interface FilterValues {
 }
 
 // Component for filtering a user list based on various criteria
-const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
+const FilterForm: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
   // State to store filter values
   const [filters, setFilters] = useState<FilterValues>({
     organization: "",
@@ -175,4 +175,4 @@ const FilterUserList: React.FC<FilterFormProps> = ({ onFilter, onReset }) => {
   )
 }
 
-export default FilterUserList
+export default FilterForm

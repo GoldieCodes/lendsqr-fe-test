@@ -1,13 +1,43 @@
 "use client"
 import Image from "next/image"
-import { useState, useContext } from "react"
-import { MenuContextProvider } from "../dashboard/layout"
+import { useEffect } from "react"
+import { useMenuContextProvider } from "../dashboard/layout"
 import Icon from "./Icon"
 import { RiMenuFold2Line, RiMenuUnfold2Line } from "react-icons/ri"
+import { usePathname } from "next/navigation"
 
 export default function TopNav() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const MenuContext = useContext(MenuContextProvider)
+  // pulling in all the variables needed from the context provider on the layout.tsx page
+  const {
+    users,
+    augmentedUsersList,
+    setAugmentedUsersList,
+    mobileMenuOpen,
+    setMobileMenuOpen,
+    search,
+    setSearch,
+  } = useMenuContextProvider()
+
+  const pathname = usePathname()
+
+  // the search functionality
+  useEffect(() => {
+    //search should only work on dashboard
+    if (users) {
+      if (search != "" && pathname.match("/dashboard")) {
+        const searchResult = users.filter(
+          (each) =>
+            each.username.toLowerCase().match(search.toLowerCase()) || //sanitizing inputs before comparison
+            each.email.toLowerCase().match(search.toLowerCase()) ||
+            each.organization.toLowerCase().match(search.toLowerCase()) ||
+            each.phone_number.toLowerCase().match(search.toLowerCase()) ||
+            each.status.toLowerCase().match(search.toLowerCase()) ||
+            each.date_joined.toLowerCase().match(search.toLowerCase())
+        )
+        setAugmentedUsersList(searchResult)
+      } else setAugmentedUsersList(users.slice(0, 50))
+    }
+  }, [search, pathname])
 
   return (
     <nav className="main-nav">
@@ -24,15 +54,11 @@ export default function TopNav() {
           <span
             className="icon menu"
             onClick={() => {
-              MenuContext?.setMobileMenuOpen(!MenuContext?.mobileMenuOpen)
-              console.log(MenuContext?.mobileMenuOpen)
+              setMobileMenuOpen(!mobileMenuOpen)
+              console.log(mobileMenuOpen)
             }}
           >
-            {MenuContext?.mobileMenuOpen ? (
-              <RiMenuUnfold2Line />
-            ) : (
-              <RiMenuFold2Line />
-            )}
+            {mobileMenuOpen ? <RiMenuUnfold2Line /> : <RiMenuFold2Line />}
           </span>
           {/* SEARCH INPUT FIELD */}
           <div className="searchBar">
@@ -40,8 +66,8 @@ export default function TopNav() {
               id="search"
               type="text"
               placeholder="Search for anything"
-              onChange={(e) => setSearchTerm(e.target.value)}
-              value={searchTerm}
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
             />
             <Icon filename="search-icon.svg" className="search" />
           </div>
