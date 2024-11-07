@@ -4,7 +4,7 @@ import Image from "next/image"
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { useState } from "react"
-import { auth } from "firebase"
+import { auth } from "@/firebase"
 import {
   Auth,
   UserCredential,
@@ -12,7 +12,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth"
 import { FirebaseError } from "firebase/app"
-import Modal from "app/components/Modal"
+import Modal from "@/app/components/Modal"
 import { useRouter } from "next/navigation"
 
 // MAIN FUNCTION COMPONENT DEFINING ALL LOGIC FOR THE LOGIN PAGE

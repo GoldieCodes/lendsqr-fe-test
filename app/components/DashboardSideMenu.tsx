@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useContext } from "react"
 import { MenuContextProvider } from "../dashboard/layout"
 import { signOut } from "firebase/auth"
-import { auth } from "firebase"
+import { auth } from "@/firebase"
 
 // Dashboard side menu component
 export default function DashboardSideMenu() {

@@ -1,6 +1,6 @@
-import Icon from "app/components/Icon"
+import Icon from "@/app/components/Icon"
 import Link from "next/link"
-import UserDetailsData from "app/components/UserDetailsData"
+import UserDetailsData from "@/app/components/UserDetailsData"
 
 // MAIN COMPONENT TO DISPLAY DETAILED INFORMATION OF A SPECIFIC USER
 export default async function UserDetail({
