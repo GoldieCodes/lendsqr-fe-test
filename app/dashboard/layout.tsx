@@ -21,7 +21,7 @@ interface MenuContextType {
 }
 
 // CREATES A CONTEXT TO MANAGE STATE OF MOBILE MENU VISIBILITY ACROSS THE DASHBOARD COMPONENTS
-export const MenuContextProvider = createContext<MenuContextType | null>(null)
+const MenuContextProvider = createContext<MenuContextType | null>(null)
 
 // MAIN LAYOUT COMPONENT FOR THE DASHBOARD, WRAPS AROUND ALL DASHBOARD PAGES
 export default function DashboardLayout({

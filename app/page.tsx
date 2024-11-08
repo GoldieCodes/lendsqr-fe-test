@@ -41,7 +41,7 @@ export default function Login() {
     setSubmitting: (arg: boolean) => void
   ) => {
     authFunction(auth, email, password)
-      .then((userCredential) => {
+      .then(() => {
         // REDIRECT USER TO DASHBOARD ON SUCCESSFUL LOGIN
         router.push("/dashboard")
       })
