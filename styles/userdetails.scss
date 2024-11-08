@@ -91,11 +91,12 @@
 
       /* Inner layout for detailed sections */
       div {
-        padding: 29px;
+        padding: 20px;
+        border-left: 1px solid rgba($body-text-clr, 0.2);
 
         /* Adds a divider line on tablet screens */
         @include tabScreen {
-          border-left: 1px solid rgba($body-text-clr, 0.2);
+          padding: 29px;
         }
 
         /* Avatar and username section */
@@ -155,15 +156,12 @@
         /* First child style in desktop view */
         &:first-child {
           color: $main-accent;
+          border-bottom: 2px solid $main-accent;
         }
 
         /* Center alignment and underline on tablet screens */
         @include tabScreen {
           text-align: center;
-          &:first-child {
-            color: $main-accent;
-            border-bottom: 2px solid $main-accent;
-          }
         }
       }
     }

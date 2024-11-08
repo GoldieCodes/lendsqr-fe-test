@@ -7,9 +7,14 @@ footer {
   .icon img {
     @include widthHeight(18px, 18px);
   }
+  @include mobileScreen {
+    padding: 0 1em 2em;
+    gap: 1.5em;
+  }
 
   aside {
     width: 50%;
+    min-width: 220px;
     @include desktopScreen {
       width: 30%;
     }
@@ -33,14 +38,15 @@ footer {
       .icon {
         position: absolute;
         right: 10%;
-        top: 25%;
+        top: 20%;
         cursor: pointer;
       }
     }
   }
   nav {
     @include flex(space-between);
-    width: 40%;
+    width: 250px;
+    min-width: 200px;
     @include desktopScreen {
       width: 20%;
     }
@@ -52,6 +58,7 @@ footer {
       font-weight: 500;
       color: $dark-blue;
       font-size: 16px;
+      flex: none;
     }
     .icon {
       padding: 0.3em 0.4em;

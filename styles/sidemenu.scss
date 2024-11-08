@@ -26,6 +26,7 @@
   /* Slide-in effect when menu is open on mobile */
   &.openMobileSideMenu {
     left: 0;
+    box-shadow: 0 20px 20px 0 rgba(36, 36, 36, 0.11);
   }
 
   /* Individual side menu link styling */
