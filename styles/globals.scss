@@ -65,7 +65,7 @@ button {
 }
 .logo {
   position: relative;
-  width: clamp(150px, 15vw, 140px); //controls the logo size across all screens
+  width: clamp(100px, 15vw, 140px); //controls the logo size across all screens
   height: 30px;
   display: inline-block;
 }

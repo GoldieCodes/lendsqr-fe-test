@@ -13,7 +13,6 @@ footer {
   }
 
   aside {
-    width: 50%;
     min-width: 220px;
     @include desktopScreen {
       width: 30%;

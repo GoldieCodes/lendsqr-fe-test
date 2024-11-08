@@ -10,7 +10,7 @@
 
   /* Header section for navigation and actions */
   header {
-    margin-top: 10vh;
+    margin: 27px 0;
     @include desktopScreen {
       margin-top: initial;
     }
@@ -150,7 +150,7 @@
         font-size: 16px;
         line-height: 19.09px;
         text-align: right;
-        padding: 10px 25px;
+        padding: 1rem 1.2rem;
         color: rgba(#000, 0.8);
 
         /* First child style in desktop view */
@@ -162,6 +162,7 @@
         /* Center alignment and underline on tablet screens */
         @include tabScreen {
           text-align: center;
+          padding: 10px 25px;
         }
       }
     }
@@ -199,7 +200,7 @@
           justify-content: space-between;
           flex-direction: column;
           flex-grow: 1;
-          width: clamp(128px, 20%, 215px);
+          width: clamp(80px, 20%, 215px);
           height: 41px;
           font-size: 12px;
           line-height: 14.08px;
