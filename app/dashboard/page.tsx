@@ -87,12 +87,12 @@ export default function Dashboard() {
         setTotalPages(completeData.length / rowsPerPage) // Update both states with fetched data
       }
     }
-  }, [currentPage, rowsPerPage])
+  }, [currentPage, rowsPerPage, setUsers, setAugmentedUsersList])
 
   //change value of total pages if rowsPerPage changes (based on user input)
   useEffect(() => {
     if (users) setTotalPages(users.length / rowsPerPage)
-  }, [rowsPerPage])
+  }, [rowsPerPage, users])
 
   // Filter users based on provided filter fields
   function filterFunction(filterFields: FilterValues) {

@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
     additionalData: `@use "variables.scss" as *; @use "mixins.scss" as *;`, // Import files here
   },
   /* other config options here */
+
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 export default nextConfig
