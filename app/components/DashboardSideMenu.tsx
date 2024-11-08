@@ -3,15 +3,14 @@
 // Import necessary components and hooks from Next.js
 import Image from "next/image"
 import Link from "next/link"
-import { useContext } from "react"
-import { MenuContextProvider } from "../dashboard/layout"
+import { useMenuContextProvider } from "../dashboard/layout"
 import { signOut } from "firebase/auth"
 import { auth } from "@/firebase"
 
 // Dashboard side menu component
 export default function DashboardSideMenu() {
   // Access the context state for controlling mobile menu visibility
-  const MenuContext = useContext(MenuContextProvider)
+  const { mobileMenuOpen } = useMenuContextProvider()
 
   // Define customer menu items with corresponding icons and text
   const customers = [
@@ -48,11 +47,7 @@ export default function DashboardSideMenu() {
 
   return (
     // Main navigation wrapper, conditionally adds a class for mobile view
-    <nav
-      className={`sidemenu ${
-        MenuContext?.mobileMenuOpen ? "openMobileSideMenu" : ""
-      }`}
-    >
+    <nav className={`sidemenu ${mobileMenuOpen ? "openMobileSideMenu" : ""}`}>
       {/* Switch Organization Link */}
       <div className="sideMenuLink">
         <span className="icon">
