@@ -34,17 +34,19 @@
     border: 1px solid #213f7d0f;
     border-radius: 4px;
     padding: 20px 30px;
-    max-width: 240px;
+    max-width: min(100vw, 300px);
     height: 160px;
-    flex-grow: 1;
+    flex: 1;
     min-width: 140px;
     display: grid;
     place-content: center;
     text-align: center;
+    margin: auto;
 
     @include desktopScreen {
       text-align: left;
       display: initial;
+      padding: 20px 30px;
     }
 
     // Icon within each item box

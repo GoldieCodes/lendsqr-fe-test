@@ -16,11 +16,12 @@
 .illustration {
   position: relative;
   width: 100vw;
-  height: 60vh;
+  height: 40vh;
   @include tabScreen {
     width: 600px;
+    height: 60vh;
     height: 337.57px;
-    margin-left: 67px;
+    margin: auto;
   }
   @include desktopScreen {
     margin-top: 139px;
