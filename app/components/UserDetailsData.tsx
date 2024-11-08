@@ -38,7 +38,7 @@ export default function UserDetailsData({ userId }: { userId: string }) {
     // THIS IS THE API FETCH FUNCTION CALLED ABOVE
     async function runApiFetch() {
       const newDataFetch = await fetchApiData<CompleteUserInfo>(
-        "https://run.mocky.io/v3/9334f069-445c-4282-9460-d9d36354ed55",
+        "https://run.mocky.io/v3/8db4638f-f448-46c0-bcc9-4e0212973c16",
         "userDetails",
         "userDetailsTimeStamp",
         1,

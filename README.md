@@ -76,7 +76,7 @@ npm run dev
 yarn dev
 ```
 
-This command starts a local development server and should be accessible at `http://localhost:3000`. Alternatively, you could view and interact with the deployment here:
+This command starts a local development server and should be accessible at `http://localhost:3000`. Alternatively, you could view and interact with the deployment here: https://gold-onyinye-udeozo-lendsqr-fe-test.vercel.app/
 
 ## Folder Structure
 

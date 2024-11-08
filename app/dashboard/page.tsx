@@ -74,7 +74,7 @@ export default function Dashboard() {
 
     async function fetchData() {
       const data = await fetchApiData<UserListType>(
-        "https://run.mocky.io/v3/34ecde44-8db0-4c51-ac89-8cfb9ab57d07",
+        "https://run.mocky.io/v3/68383c85-9c2a-4422-b1f5-715e301546b1",
         "usersList",
         "usersListTimeStamp",
         currentPage,
