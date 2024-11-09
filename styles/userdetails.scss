@@ -206,6 +206,7 @@
           line-height: 14.08px;
           text-transform: uppercase;
           text-wrap: auto;
+          overflow: hidden;
 
           /* Desktop-specific adjustments */
           @include desktopScreen {
