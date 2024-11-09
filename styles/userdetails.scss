@@ -200,11 +200,12 @@
           justify-content: space-between;
           flex-direction: column;
           flex-grow: 1;
-          width: clamp(80px, 20%, 215px);
+          width: clamp(110px, 20%, 215px);
           height: 41px;
           font-size: 12px;
           line-height: 14.08px;
           text-transform: uppercase;
+          text-wrap: auto;
 
           /* Desktop-specific adjustments */
           @include desktopScreen {
