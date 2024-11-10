@@ -3,7 +3,7 @@
 // Import necessary components and hooks from Next.js
 import Image from "next/image"
 import Link from "next/link"
-import { useMenuContextProvider } from "../dashboard/layout"
+import { useMenuContextProvider } from "@/app/contextAPIs/MenuContextProvider"
 import { signOut } from "firebase/auth"
 import { auth } from "@/firebase"
 

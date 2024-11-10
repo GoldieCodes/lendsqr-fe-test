@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image"
 import { useEffect } from "react"
-import { useMenuContextProvider } from "../dashboard/layout"
+import { useMenuContextProvider } from "@/app/contextAPIs/MenuContextProvider"
 import Icon from "@/app/components/Icon"
 import { RiMenuFold2Line, RiMenuUnfold2Line } from "react-icons/ri"
 import { usePathname } from "next/navigation"
@@ -22,21 +22,22 @@ export default function TopNav() {
   // the search functionality
   useEffect(() => {
     //search should only work on dashboard
-    if (users) {
-      if (search != "" && pathname.match("/dashboard")) {
+    if (users && pathname === "/dashboard") {
+      if (search != "") {
         const searchResult = users.filter(
           (each) =>
-            each.username.toLowerCase().match(search.toLowerCase()) || //sanitizing inputs before comparison
-            each.email.toLowerCase().match(search.toLowerCase()) ||
-            each.organization.toLowerCase().match(search.toLowerCase()) ||
-            each.phone_number.toLowerCase().match(search.toLowerCase()) ||
-            each.status.toLowerCase().match(search.toLowerCase()) ||
-            each.date_joined.toLowerCase().match(search.toLowerCase())
+            each.username.toLowerCase().includes(search.toLowerCase()) || //sanitizing inputs before comparison
+            each.email.toLowerCase().includes(search.toLowerCase()) ||
+            each.organization.toLowerCase().includes(search.toLowerCase()) ||
+            each.phone_number.toLowerCase().includes(search.toLowerCase()) ||
+            each.status.toLowerCase().includes(search.toLowerCase()) ||
+            each.date_joined.toLowerCase().includes(search.toLowerCase())
         )
-        setAugmentedUsersList(searchResult)
-      } else setAugmentedUsersList(users.slice(0, 50))
+        return setAugmentedUsersList(searchResult)
+      }
+      return setAugmentedUsersList(users.slice(0, 50))
     }
-  }, [search, pathname])
+  }, [search, pathname, users])
 
   return (
     <nav className="main-nav">
@@ -54,10 +55,13 @@ export default function TopNav() {
             className="icon menu"
             onClick={() => {
               setMobileMenuOpen(!mobileMenuOpen)
-              console.log(mobileMenuOpen)
             }}
           >
-            {mobileMenuOpen ? <RiMenuUnfold2Line /> : <RiMenuFold2Line />}
+            {mobileMenuOpen ? (
+              <RiMenuUnfold2Line data-testid="menuIsOpen" />
+            ) : (
+              <RiMenuFold2Line data-testid="menuIsNotOpen" />
+            )}
           </span>
           {/* SEARCH INPUT FIELD */}
           <div className="searchBar">
