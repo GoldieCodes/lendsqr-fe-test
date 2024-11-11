@@ -25,14 +25,10 @@ export default function UserDetailsData({ userId }: { userId: string }) {
   useEffect(() => {
     const storedData = checkStorageData<CompleteUserInfo>(
       "userDetails",
-      "userDetailsTimeStamp",
-      1,
-      1
+      "userDetailsTimeStamp"
     )
     if (storedData) {
-      const [completeData, paginatedData] = storedData
-      setUserDetails(completeData)
-      console.log(completeData)
+      setUserDetails(storedData)
     } else runApiFetch() //RETRIEVES DATA DIRECTLY FROM THE API WHERE STORAGE DATA WAS ABSENT OR DIDN'T MEET REQUIREMENTS
 
     // THIS IS THE API FETCH FUNCTION CALLED ABOVE
@@ -40,13 +36,10 @@ export default function UserDetailsData({ userId }: { userId: string }) {
       const newDataFetch = await fetchApiData<CompleteUserInfo>(
         "https://run.mocky.io/v3/8db4638f-f448-46c0-bcc9-4e0212973c16",
         "userDetails",
-        "userDetailsTimeStamp",
-        1,
-        1
+        "userDetailsTimeStamp"
       )
       if (newDataFetch) {
-        const [completeData, paginatedData] = newDataFetch
-        setUserDetails(completeData)
+        setUserDetails(newDataFetch)
       }
     }
   }, [userId])
