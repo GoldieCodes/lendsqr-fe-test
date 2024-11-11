@@ -8,10 +8,6 @@ type PaginationProps<T extends any[]> = {
   offset: number
   pagesArray: number[]
   setPagesArray: React.Dispatch<React.SetStateAction<number[]>>
-  canGetNextPage: boolean
-  setCanGetNextPage: React.Dispatch<React.SetStateAction<boolean>>
-  canGetPreviousPage: boolean
-  setCanGetPreviousPage: React.Dispatch<React.SetStateAction<boolean>>
   rowsPerPage: number
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
   totalPages: number | null
@@ -23,10 +19,6 @@ export default function Pagination<T extends any[]>({
   setCurrentPage,
   pagesArray,
   setPagesArray,
-  canGetNextPage,
-  setCanGetNextPage,
-  canGetPreviousPage,
-  setCanGetPreviousPage,
   rowsPerPage,
   setRowsPerPage,
   totalPages,
@@ -35,21 +27,9 @@ export default function Pagination<T extends any[]>({
   //the variable that sets the initial offset value is the rowsPerPage variable in the parent component
   const [offsetInput, setOffsetInput] = useState(rowsPerPage.toString())
 
-  //controls the class that visually discourages the required page button from being clicked
-
-  useEffect(() => {
-    if (totalPages && currentPage !== totalPages) {
-      setCanGetNextPage(true)
-    } else setCanGetNextPage(false)
-    if (currentPage === 1) {
-      setCanGetPreviousPage(false)
-    } else setCanGetPreviousPage(true)
-  }, [currentPage, totalPages, rowsPerPage])
-
   function getNextPage() {
     if (totalPages && currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1)
-      setPagesArray((prev) => [...prev, currentPage + 1])
     }
   }
   function getPreviousPage() {
@@ -110,33 +90,37 @@ export default function Pagination<T extends any[]>({
         {/* the button to go to the previous page */}
         <Icon
           filename="np_next.svg"
-          className={`previousPage ${
-            canGetPreviousPage ? "hover" : "disabled"
-          }`}
+          className={`previousPage ${currentPage === 1 ? "disabled" : "hover"}`}
           onClick={getPreviousPage}
         />
 
         {/* the page numbers */}
         <ul className="pages">
-          {pagesArray.length === 1 ? (
-            <li>{pagesArray[0]}</li>
-          ) : pagesArray.length <= 3 && pagesArray.length > 1 ? (
-            pagesArray.map((page) => <li key={page}>{page}</li>)
-          ) : (
-            pagesArray.slice(0, 3).map((page) => <li key={page}>{page}</li>)
-          )}
-
+          {pagesArray.slice(0, 3).map((page) => (
+            <li
+              key={page}
+              className={currentPage === page ? "currentPage" : ""}
+            >
+              {page}
+            </li>
+          ))}
           <li>...</li>
-          {pagesArray.length > 4
-            ? pagesArray
-                .slice(pagesArray.length - 2)
-                .map((page) => <li key={page}>{page}</li>)
-            : null}
+          {currentPage > 4 &&
+            pagesArray.slice(currentPage - 1, currentPage + 1).map((page) => (
+              <li
+                key={page}
+                className={currentPage === page ? "currentPage" : ""}
+              >
+                {page}
+              </li>
+            ))}
         </ul>
         {/* the button to go to the next page */}
         <Icon
           filename="np_next.svg"
-          className={`nextPage ${canGetNextPage ? "hover" : "disabled"}`}
+          className={`nextPage ${
+            currentPage === totalPages ? "disabled" : "hover"
+          }`}
           onClick={getNextPage}
         />
       </nav>

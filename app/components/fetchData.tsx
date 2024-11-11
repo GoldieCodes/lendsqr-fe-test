@@ -10,10 +10,8 @@
  */
 export function checkStorageData<T>(
   storedDataKey: string,
-  storedTimeKey: string,
-  currentPage: number,
-  rowsPerPage: number
-): [T[], T[]] | null {
+  storedTimeKey: string
+): T[] | null {
   // Data is considered stale after 24 hours (converted to milliseconds)
   const dataExpiryInterval = 24 * 60 * 60 * 1000
 
@@ -28,13 +26,7 @@ export function checkStorageData<T>(
 
     // Check if the interval has been exceeded; if not, return the data
     if (timeRightNow - parsedTime < dataExpiryInterval) {
-      // paginate the data
-
-      const singleDataPage = parsedData.slice(
-        (currentPage - 1) * rowsPerPage,
-        currentPage * rowsPerPage
-      )
-      return [parsedData, singleDataPage] // Return the complete fetched data and a paginated part of the fetched data to a state variable for display
+      return parsedData // Return the complete fetched data
     }
   }
 
@@ -52,26 +44,19 @@ export function checkStorageData<T>(
 export async function fetchApiData<T>(
   api: string,
   dataStorageKey: string,
-  timeStorageKey: string,
-  currentPage: number,
-  rowsPerPage: number
-): Promise<[T[], T[]] | null> {
+  timeStorageKey: string
+): Promise<T[] | null> {
   const response = await fetch(api)
 
   if (response.ok) {
     const data: T[] = await response.json()
     const timeStamp = Date.now()
-    // paginate the data
-    const singleDataPage: T[] = data.slice(
-      (currentPage - 1) * rowsPerPage,
-      currentPage * rowsPerPage
-    )
 
     // Store the fetched data and timestamp in localStorage
     localStorage.setItem(dataStorageKey, JSON.stringify(data))
     localStorage.setItem(timeStorageKey, timeStamp.toString())
 
-    return [data, singleDataPage] // Return the complete fetched data and a paginated part of the fetched data to a state variable for display
+    return data // Return the complete fetched data and a paginated part of the fetched data to a state variable for display
   }
   return null
 }

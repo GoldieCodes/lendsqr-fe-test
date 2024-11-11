@@ -36,7 +36,7 @@ export const MenuContextProvider = ({
   //the augmentedUsersList used to perform other operations on the user list data, so as to preserve the
   //original "users" variable in case of the need for a reset.
   const [augmentedUsersList, setAugmentedUsersList] =
-    useState<UsersInterface | null>(users)
+    useState<UsersInterface | null>(null)
 
   return (
     <MenuContext.Provider

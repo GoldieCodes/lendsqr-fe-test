@@ -42,8 +42,6 @@ export default function Dashboard() {
   // these two state variables are for pagination controls
   const [currentPage, setCurrentPage] = useState(1)
   const [pagesArray, setPagesArray] = useState([currentPage])
-  const [canGetNextPage, setCanGetNextPage] = useState(true)
-  const [canGetPreviousPage, setCanGetPreviousPage] = useState(false)
 
   const {
     users,
@@ -58,36 +56,39 @@ export default function Dashboard() {
   useEffect(() => {
     const storedData = checkStorageData<UserListType>(
       "usersList",
-      "usersListTimeStamp",
-      currentPage,
-      rowsPerPage
-    ) // Check local storage for user data
+      "usersListTimeStamp"
+    )
+
     if (storedData) {
-      const [completeData, paginatedData] = storedData
-      setUsers(completeData)
-      setAugmentedUsersList(paginatedData)
-      setTotalPages(completeData.length / rowsPerPage)
-      // Set both states if data is found in storage
+      handleData(storedData) // Use the helper function with stored data
     } else {
-      fetchData() // If no data is found, fetch from API
+      fetchData() // Fetch from API if no data is in storage
     }
 
     async function fetchData() {
       const data = await fetchApiData<UserListType>(
         "https://run.mocky.io/v3/68383c85-9c2a-4422-b1f5-715e301546b1",
         "usersList",
-        "usersListTimeStamp",
-        currentPage,
-        rowsPerPage
+        "usersListTimeStamp"
       )
       if (data) {
-        const [completeData, paginatedData] = data
-        setUsers(completeData)
-        setAugmentedUsersList(paginatedData)
-        setTotalPages(completeData.length / rowsPerPage) // Update both states with fetched data
+        handleData(data) // Use the helper function with fetched data
       }
     }
-  }, [currentPage, rowsPerPage, setUsers, setAugmentedUsersList])
+
+    // to paginate the data and
+    function handleData(data: UserListType[]) {
+      //the complete data pulled in
+      setUsers(data)
+      // a paginated portion of the data
+      setAugmentedUsersList(
+        data.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
+      )
+      const totalPageCount = Math.ceil(data.length / rowsPerPage)
+      setTotalPages(totalPageCount)
+      setPagesArray(Array.from({ length: totalPageCount }, (_, i) => i + 1))
+    }
+  }, [currentPage, rowsPerPage])
 
   //change value of total pages if rowsPerPage changes (based on user input)
   useEffect(() => {
@@ -181,7 +182,7 @@ export default function Dashboard() {
               ))}
             </div>
             {/* Displaying each user in the users list */}
-            {augmentedUsersList && augmentedUsersList.length > 0 ? (
+            {augmentedUsersList ? (
               augmentedUsersList.map((item) => (
                 <div className="singleUser" key={item.id}>
                   <ul>
@@ -228,7 +229,7 @@ export default function Dashboard() {
             )}
           </div>
         </section>
-        {augmentedUsersList && augmentedUsersList.length > 0 && (
+        {augmentedUsersList && (
           <Pagination
             data={users}
             offset={rowsPerPage}
@@ -237,10 +238,6 @@ export default function Dashboard() {
             pagesArray={pagesArray}
             setCurrentPage={setCurrentPage}
             setPagesArray={setPagesArray}
-            canGetNextPage={canGetNextPage}
-            setCanGetNextPage={setCanGetNextPage}
-            canGetPreviousPage={canGetPreviousPage}
-            setCanGetPreviousPage={setCanGetPreviousPage}
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}
           />

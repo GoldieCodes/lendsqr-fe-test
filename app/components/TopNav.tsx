@@ -35,7 +35,7 @@ export default function TopNav() {
         )
         return setAugmentedUsersList(searchResult)
       }
-      return setAugmentedUsersList(users.slice(0, 50))
+      return setAugmentedUsersList((prev) => prev)
     }
   }, [search, pathname, users])
 
