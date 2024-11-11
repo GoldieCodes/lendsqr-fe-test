@@ -182,7 +182,7 @@ export default function Dashboard() {
               ))}
             </div>
             {/* Displaying each user in the users list */}
-            {augmentedUsersList ? (
+            {augmentedUsersList && augmentedUsersList.length > 0 ? (
               augmentedUsersList.map((item) => (
                 <div className="singleUser" key={item.id}>
                   <ul>

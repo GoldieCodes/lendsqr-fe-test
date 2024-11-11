@@ -69,11 +69,11 @@
     p {
       text-transform: uppercase;
       font-weight: 500;
-      line-height: 16.42px;
       margin-top: 10px;
+      text-wrap: wrap;
 
       &.number {
-        font-size: 24px;
+        font-size: 1.6rem;
         font-weight: 600;
         line-height: 28.15px;
       }
@@ -186,8 +186,8 @@
           width: 180px;
           padding: 1.1em 1.5em;
           position: absolute;
-          bottom: 100%;
-          left: 85%;
+          bottom: 0;
+          left: 77%;
           border-radius: 4px;
           background: white;
           @extend %box-shadow2;
@@ -202,10 +202,7 @@
             font-weight: 500;
           }
         }
-        & .moreOptionsDialog:first-of-type {
-          bottom: 0;
-          left: 77%;
-        }
+
         // Status buttons in the user list
         .statusPill {
           padding: 0.5rem 1.2rem;
