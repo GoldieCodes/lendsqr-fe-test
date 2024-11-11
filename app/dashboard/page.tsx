@@ -76,7 +76,7 @@ export default function Dashboard() {
       }
     }
 
-    // to paginate the data and
+    // to paginate the data and create its array of pages
     function handleData(data: UserListType[]) {
       //the complete data pulled in
       setUsers(data)
@@ -235,8 +235,8 @@ export default function Dashboard() {
             offset={rowsPerPage}
             totalPages={totalPages}
             currentPage={currentPage}
-            pagesArray={pagesArray}
             setCurrentPage={setCurrentPage}
+            pagesArray={pagesArray}
             setPagesArray={setPagesArray}
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}

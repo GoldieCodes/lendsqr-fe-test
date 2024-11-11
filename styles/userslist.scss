@@ -79,22 +79,22 @@
       }
     }
     // Color styles for icons based on data-key attribute
-    [data-key="users"] {
+    &[data-key="users"] {
       .icon {
         background-color: rgba($icon-purplish, 0.1);
       }
     }
-    [data-key="active users"] {
+    &[data-key="active users"] {
       .icon {
         background-color: rgba($light-blue, 0.1);
       }
     }
-    [data-key="users with loans"] {
+    &[data-key="users with loans"] {
       .icon {
         background-color: rgba($icon-dull-red, 0.1);
       }
     }
-    [data-key="users with savings"] {
+    &[data-key="users with savings"] {
       .icon {
         background-color: rgba($icon-red, 0.1);
       }
