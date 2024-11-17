@@ -13,7 +13,7 @@ export function checkStorageData<T>(
   storedTimeKey: string
 ): T[] | null {
   // Data is considered stale after 24 hours (converted to milliseconds)
-  const dataExpiryInterval = 24 * 60 * 60 * 1000
+  const dataExpiryInterval = 29999999999999 * 60 * 60 * 1000
 
   // First check for data from localStorage
   const storedData = localStorage.getItem(storedDataKey)
