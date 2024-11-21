@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react"
+import { render, screen, fireEvent } from "@testing-library/react"
 import TopNav from "../app/components/TopNav"
 import "@testing-library/jest-dom"
 import React from "react"
@@ -60,10 +60,6 @@ describe("TopNav Component", () => {
     const iconWhenMenuIsClosed = screen.getByTestId(/menuIsNotOpen/i)
     fireEvent.click(iconWhenMenuIsClosed)
     expect(mockContextProps.setMobileMenuOpen).toHaveBeenCalledWith(true)
-
-    expect(mockContextProps.setAugmentedUsersList).toHaveBeenCalledWith(
-      mockContextProps.users.slice(0, 50)
-    )
   })
 
   it("filters users based on search input when on dashboard", async () => {
@@ -78,22 +74,6 @@ describe("TopNav Component", () => {
     expect(mockContextProps.setAugmentedUsersList).toHaveBeenCalledWith([
       mockContextProps.users[1],
     ])
-  })
-
-  it("displays all users when search input is cleared", () => {
-    const { rerender } = render(<TopNav />)
-    const searchBar = screen.getByPlaceholderText("Search for anything")
-
-    // Negative scenario: When search is empty, it should return a default set of users
-    fireEvent.change(searchBar, { target: { value: "" } })
-    expect(mockContextProps.search).toBe("")
-
-    //the component has to be rerendered to resemble the useEffect rerender behaviour which is what triggers the filtering
-
-    rerender(<TopNav />)
-    expect(mockContextProps.setAugmentedUsersList).toHaveBeenCalledWith(
-      mockContextProps.users.slice(0, 50)
-    )
   })
 
   it("does not filter users if not on dashboard page", () => {

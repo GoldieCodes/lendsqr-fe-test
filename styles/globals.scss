@@ -166,3 +166,9 @@ select {
 ::-webkit-scrollbar-corner {
   background: #f0f0f0;
 }
+
+select {
+  appearance: none; // Removes the default arrow in most modern browsers
+  -webkit-appearance: none; // Removes the default arrow in WebKit-based browsers (Chrome, Safari)
+  -moz-appearance: none; // Removes the default arrow in Firefox
+}

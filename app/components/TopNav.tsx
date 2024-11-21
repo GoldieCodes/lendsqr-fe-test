@@ -23,7 +23,7 @@ export default function TopNav() {
   useEffect(() => {
     //search should only work on dashboard
     if (users && pathname === "/dashboard") {
-      if (search != "") {
+      if (search !== "") {
         const searchResult = users.filter(
           (each) =>
             each.username.toLowerCase().includes(search.toLowerCase()) || //sanitizing inputs before comparison

@@ -1,4 +1,4 @@
-// The following functions fetch data from localStorage or an API and paginate the given data
+// The following functions fetch data from localStorage or an API
 
 /**
  * Checks localStorage for stored data and its timestamp.
@@ -56,7 +56,7 @@ export async function fetchApiData<T>(
     localStorage.setItem(dataStorageKey, JSON.stringify(data))
     localStorage.setItem(timeStorageKey, timeStamp.toString())
 
-    return data // Return the complete fetched data and a paginated part of the fetched data to a state variable for display
+    return data // Return the complete fetched data
   }
   return null
 }

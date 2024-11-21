@@ -21,7 +21,8 @@ footer {
       @include flex(left);
       gap: 8px;
 
-      input {
+      select {
+        cursor: pointer;
         font-weight: 500;
         padding: 0.3em 0.7em;
         border-radius: 4px;

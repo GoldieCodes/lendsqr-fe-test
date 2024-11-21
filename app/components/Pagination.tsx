@@ -51,7 +51,7 @@ export default function Pagination<T extends any[]>({
     setOffsetInput("") //will clear the display after the user has entered a value, so that the placeholder value can show
   }
 
-  function changeOffsetOnKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function changeOffsetOnKeyDown(e: React.KeyboardEvent<HTMLSelectElement>) {
     if (e.key === "Enter") {
       changeOffset()
     }
@@ -70,16 +70,20 @@ export default function Pagination<T extends any[]>({
         <p className="currentPageNumber">
           Showing
           <span>
-            <input
-              type="text"
+            <select
               id="offsetValue"
-              placeholder={(rowsPerPage * currentPage).toString()} //displays how many records have been shown in total
               value={offsetInput}
               onChange={(e) => setOffsetInput(e.target.value)}
               onKeyDown={(e) => changeOffsetOnKeyDown(e)}
-            />
+            >
+              <option value={50}>{rowsPerPage * currentPage}</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
 
-            <Icon filename="np_next.svg" onClick={changeOffset} />
+            <Icon filename="np_next.svg" />
           </span>
           out of {data.length}
         </p>

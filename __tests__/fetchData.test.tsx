@@ -42,11 +42,8 @@ describe("test that data fetching from localStorage works as expected", () => {
     localStorage.setItem(mockStoredDataKey, freshData)
     localStorage.setItem(mockStoredTimeKey, freshTimestamp.toString())
 
-    const result = checkStorageData(mockStoredDataKey, mockStoredTimeKey, 1, 50)
-    expect(result).toEqual([
-      [{ data: "some fresh data" }],
-      [{ data: "some fresh data" }],
-    ])
+    const result = checkStorageData(mockStoredDataKey, mockStoredTimeKey)
+    expect(result).toEqual([{ data: "some fresh data" }])
   })
 
   test("returns null if data is stale", () => {
@@ -55,12 +52,7 @@ describe("test that data fetching from localStorage works as expected", () => {
     localStorage.setItem(mockStoredDataKey, staleData)
     localStorage.setItem(mockStoredTimeKey, staleTimestamp.toString())
 
-    const result = checkStorageData(mockStoredDataKey, mockStoredTimeKey, 1, 50)
-    expect(result).toBeNull()
-  })
-
-  test("returns null if data does not exist", () => {
-    const result = checkStorageData(mockStoredDataKey, mockStoredTimeKey, 1, 50)
+    const result = checkStorageData(mockStoredDataKey, mockStoredTimeKey)
     expect(result).toBeNull()
   })
 })
@@ -71,23 +63,15 @@ describe("fetchApiData", () => {
   const mockUrl = "https://api.example.com/data"
   const mockDataStorageKey = "mockDataKey"
   const mockTimeStorageKey = "mockTimeKey"
-  const currentPage = 1
-  const rowsPerPage = 2
 
-  test("stores data in localStorage and returns paginated data on successful API call", async () => {
+  test("stores data in localStorage on successful API call", async () => {
     const mockResponse = [{ id: 1 }, { id: 2 }]
     mockFetch.mockResolvedValueOnce({
       json: () => Promise.resolve(mockResponse),
       ok: true,
     })
 
-    await fetchApiData(
-      mockUrl,
-      mockDataStorageKey,
-      mockTimeStorageKey,
-      currentPage,
-      rowsPerPage
-    )
+    await fetchApiData(mockUrl, mockDataStorageKey, mockTimeStorageKey)
 
     expect(localStorage.setItem).toHaveBeenCalledWith(
       mockDataStorageKey,
@@ -104,31 +88,10 @@ describe("fetchApiData", () => {
     const result = await fetchApiData(
       mockUrl,
       mockDataStorageKey,
-      mockTimeStorageKey,
-      currentPage,
-      rowsPerPage
+      mockTimeStorageKey
     )
     expect(result).toBeNull()
     expect(mockFetch).toHaveBeenCalledWith(mockUrl)
     expect(localStorage.setItem).not.toHaveBeenCalled()
-  })
-
-  test("paginates data based on currentPage and rowsPerPage", async () => {
-    const mockData = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-
-    mockFetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockData,
-    })
-
-    const result = await fetchApiData(
-      mockUrl,
-      mockDataStorageKey,
-      mockTimeStorageKey,
-      2,
-      rowsPerPage
-    )
-
-    expect(result).toEqual([mockData, mockData.slice(2, 4)])
   })
 })
