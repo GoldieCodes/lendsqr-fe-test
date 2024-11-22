@@ -39,22 +39,11 @@ export default function Pagination<T extends any[]>({
     }
   }
   //allow the user to enter the number of pages to show at a time
-  function changeOffset() {
-    const inputValueForNumberOfPagesShown = parseInt(offsetInput, 10)
-    if (
-      inputValueForNumberOfPagesShown < data.length &&
-      inputValueForNumberOfPagesShown > 0
-    )
-      setRowsPerPage(inputValueForNumberOfPagesShown)
+  function changeOffset(userSelection: string) {
+    setRowsPerPage(parseInt(userSelection, 10))
     setCurrentPage(1)
     setPagesArray([1])
     setOffsetInput("") //will clear the display after the user has entered a value, so that the placeholder value can show
-  }
-
-  function changeOffsetOnKeyDown(e: React.KeyboardEvent<HTMLSelectElement>) {
-    if (e.key === "Enter") {
-      changeOffset()
-    }
   }
 
   //will run just once and clear the input field
@@ -69,23 +58,20 @@ export default function Pagination<T extends any[]>({
         {/* The display of how many records out of the total are being shown */}
         <p className="currentPageNumber">
           Showing
-          <span>
-            <select
-              id="offsetValue"
-              value={offsetInput}
-              onChange={(e) => setOffsetInput(e.target.value)}
-              onKeyDown={(e) => changeOffsetOnKeyDown(e)}
-            >
-              <option value={50}>{rowsPerPage * currentPage}</option>
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-            </select>
-
-            <Icon filename="np_next.svg" />
-          </span>
-          out of {data.length}
+          <select
+            id="offsetValue"
+            value={offsetInput}
+            onChange={(e) => {
+              if (e.target.value !== "") changeOffset(e.target.value)
+            }}
+          >
+            <option value="">{rowsPerPage * currentPage}</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+          </select>
+          out of {data.length} records.
         </p>
       </aside>
 

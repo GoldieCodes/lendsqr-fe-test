@@ -31,16 +31,6 @@
           font-family: $work-sans;
           color: $body-text-clr;
         }
-        select {
-          appearance: none; // Removes the default arrow in most modern browsers
-          -webkit-appearance: none; // Removes the default arrow in WebKit-based browsers (Chrome, Safari)
-          -moz-appearance: none; // Removes the default arrow in Firefox
-
-          background-image: url("/np_next.svg");
-          background-repeat: no-repeat;
-          background-position: right 10px center; // Adjust position as needed
-          padding-right: 30px;
-        }
         .form-buttons {
           margin-top: 5px;
           display: flex;

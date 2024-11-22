@@ -20,26 +20,17 @@ footer {
     p {
       @include flex(left);
       gap: 8px;
-
+      flex-wrap: nowrap;
       select {
+        width: 25%;
         cursor: pointer;
         font-weight: 500;
         padding: 0.3em 0.7em;
         border-radius: 4px;
         color: rgba($dark-blue, 0.6);
         @include flex(space-between);
-        background: rgba($dark-blue, 0.1);
+        background-color: rgba($dark-blue, 0.1);
         border: none;
-      }
-      span {
-        position: relative;
-        width: 25%;
-      }
-      .icon {
-        position: absolute;
-        right: 10%;
-        top: 20%;
-        cursor: pointer;
       }
     }
   }
