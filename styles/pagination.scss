@@ -2,7 +2,7 @@
 @use "variables.scss" as *;
 
 footer {
-  margin: 1em 0 1vh;
+  margin: 1em;
   @include flex(space-between);
   .icon img {
     @include widthHeight(18px, 18px);
@@ -43,7 +43,7 @@ footer {
     }
     li {
       @include flex(space-between);
-      padding: 0.1em;
+      padding: 0.15em;
       &.currentPage {
         color: $dark-blue;
         font-size: 17px;
@@ -55,23 +55,19 @@ footer {
       font-size: 15px;
       flex: none;
     }
-    .icon {
-      padding: 0.3em 0.4em;
+    span {
+      padding: 4px;
       border-radius: 4px;
       cursor: pointer;
+      font-size: 1.5em;
+      display: grid; //this offsets a weird height problem on the span; don't remove
       background: rgba($body-text-clr, 0.2);
-      &.previousPage {
-        transform: rotate(90deg);
-      }
-      &.nextPage {
-        transform: rotate(270deg);
-      }
       &.disabled {
         cursor: not-allowed;
         background: rgba(81, 88, 87, 0.384);
       }
       &.hover:hover {
-        background: rgba($main-accent, 0.7);
+        background: rgba($green, 0.4);
       }
     }
   }

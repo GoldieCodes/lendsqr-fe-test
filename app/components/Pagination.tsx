@@ -1,5 +1,7 @@
 import Icon from "@/app/components/Icon"
 import { useEffect, useState } from "react"
+import { MdKeyboardArrowLeft } from "react-icons/md"
+import { MdKeyboardArrowRight } from "react-icons/md"
 
 type PaginationProps<T extends any[]> = {
   data: T
@@ -78,11 +80,12 @@ export default function Pagination<T extends any[]>({
       {/* The pagination and controls display */}
       <nav>
         {/* the button to go to the previous page */}
-        <Icon
-          filename="np_next.svg"
+        <span
           className={`previousPage ${currentPage === 1 ? "disabled" : "hover"}`}
           onClick={getPreviousPage}
-        />
+        >
+          <MdKeyboardArrowLeft />
+        </span>
 
         {/* the page numbers */}
         <ul className="pages">
@@ -106,13 +109,15 @@ export default function Pagination<T extends any[]>({
             ))}
         </ul>
         {/* the button to go to the next page */}
-        <Icon
-          filename="np_next.svg"
+
+        <span
           className={`nextPage ${
             currentPage === totalPages ? "disabled" : "hover"
           }`}
           onClick={getNextPage}
-        />
+        >
+          <MdKeyboardArrowRight />
+        </span>
       </nav>
     </footer>
   )
