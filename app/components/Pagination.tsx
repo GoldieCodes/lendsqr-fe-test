@@ -1,4 +1,3 @@
-import Icon from "@/app/components/Icon"
 import { useEffect, useState } from "react"
 import { MdKeyboardArrowLeft } from "react-icons/md"
 import { MdKeyboardArrowRight } from "react-icons/md"
